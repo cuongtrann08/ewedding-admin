@@ -29,27 +29,29 @@
     --blue: #1d4ed8;
     --blue-soft: #e8f1ff;
     --success: #047857;
-    --shadow: 0 26px 70px rgba(19, 34, 1, 0.14);
-    --shadow-soft: 0 14px 34px rgba(19, 34, 1, 0.08);
-    --radius-xl: 34px;
-    --radius-lg: 26px;
+    --shadow: 0 24px 60px rgba(19, 34, 1, 0.13);
+    --shadow-soft: 0 12px 30px rgba(19, 34, 1, 0.08);
+    --radius-xl: 32px;
+    --radius-lg: 24px;
     --radius-md: 18px;
-    --radius-sm: 13px;
+    --radius-sm: 14px;
   }
 
   * {
     box-sizing: border-box;
   }
 
+  html,
   body {
     margin: 0;
+    width: 100%;
+    min-height: 100%;
     font-family: 'Be Vietnam Pro', Arial, sans-serif;
     color: var(--text);
     background:
-      radial-gradient(circle at 12% 8%, rgba(200, 161, 90, 0.28), transparent 28%),
-      radial-gradient(circle at 88% 16%, rgba(16, 29, 10, 0.16), transparent 26%),
+      radial-gradient(circle at 12% 8%, rgba(200, 161, 90, 0.25), transparent 28%),
+      radial-gradient(circle at 88% 16%, rgba(16, 29, 10, 0.13), transparent 26%),
       linear-gradient(135deg, #fffaf0 0%, var(--cream) 45%, #efe3cf 100%);
-    min-height: 100vh;
   }
 
   body::before {
@@ -66,53 +68,12 @@
 
   a {
     color: var(--green);
-    font-weight: 700;
+    font-weight: 800;
     text-decoration: none;
   }
 
   a:hover {
     color: var(--gold);
-  }
-
-  .page {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-
-  .card {
-    width: 100%;
-    max-width: 480px;
-    padding: 38px;
-    border-radius: 36px;
-    background: rgba(255, 255, 255, 0.82);
-    border: 1px solid rgba(234, 223, 205, 0.9);
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(16px);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .card::before {
-    content: "";
-    position: absolute;
-    width: 210px;
-    height: 210px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(200,161,90,0.34), transparent 68%);
-    top: -90px;
-    right: -90px;
-  }
-
-  .card::after {
-    content: "";
-    position: absolute;
-    inset: 14px;
-    border: 1px solid rgba(200,161,90,0.23);
-    border-radius: 28px;
-    pointer-events: none;
   }
 
   h1, h2, h3 {
@@ -129,6 +90,48 @@
   h3 {
     font-size: 24px;
     margin-bottom: 18px;
+  }
+
+  /* LOGIN */
+  .page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 480px;
+    padding: 38px;
+    border-radius: 36px;
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(234, 223, 205, 0.9);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,161,90,0.32), transparent 68%);
+    top: -90px;
+    right: -90px;
+  }
+
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(200,161,90,0.23);
+    border-radius: 28px;
+    pointer-events: none;
   }
 
   .logo {
@@ -212,11 +215,12 @@
     background: #ffffff;
   }
 
+  /* BUTTONS */
   button {
     border: 0;
     border-radius: 15px;
     padding: 12px 16px;
-    font-weight: 800;
+    font-weight: 900;
     cursor: pointer;
     font-size: 14px;
     font-family: 'Be Vietnam Pro', Arial, sans-serif;
@@ -239,12 +243,8 @@
     box-shadow: 0 15px 28px rgba(16, 29, 10, 0.25);
   }
 
-  .btn-main:hover {
-    box-shadow: 0 18px 36px rgba(16, 29, 10, 0.32);
-  }
-
   .btn-light {
-    background: rgba(255, 255, 255, 0.86);
+    background: rgba(255, 255, 255, 0.9);
     color: var(--green);
     border: 1px solid var(--border);
   }
@@ -252,6 +252,22 @@
   .btn-light:hover {
     background: var(--gold-soft);
     border-color: rgba(200,161,90,0.55);
+  }
+
+  .btn-copy {
+    background: var(--blue-soft);
+    color: var(--blue);
+    padding: 9px 14px;
+    font-size: 13px;
+    border-radius: 13px;
+  }
+
+  .btn-mess {
+    background: #e0e7ff;
+    color: #3730a3;
+    padding: 9px 14px;
+    font-size: 13px;
+    border-radius: 13px;
   }
 
   .btn-danger {
@@ -263,40 +279,10 @@
     min-width: 64px;
   }
 
-  .btn-danger:hover {
-    background: #fecaca;
-  }
-
-  .btn-copy {
-    background: var(--blue-soft);
-    color: var(--blue);
-    padding: 9px 14px;
-    font-size: 13px;
-    border-radius: 13px;
-  }
-.btn-mess {
-  background: #e0e7ff;
-  color: #3730a3;
-  padding: 9px 14px;
-  font-size: 13px;
-  border-radius: 13px;
-}
-
-.btn-mess:hover {
-  background: #c7d2fe;
-}
-  .btn-copy:hover {
-    background: #dbeafe;
-  }
-
   .btn-logout {
     background: rgba(255,255,255,0.12);
     color: #fff7e6;
     border: 1px solid rgba(255,255,255,0.22);
-  }
-
-  .btn-logout:hover {
-    background: rgba(255,255,255,0.18);
   }
 
   .error {
@@ -311,9 +297,10 @@
     color: var(--success);
     font-size: 14px;
     margin-top: 12px;
-    font-weight: 700;
+    font-weight: 800;
   }
 
+  /* LAYOUT */
   .app {
     display: none;
     min-height: 100vh;
@@ -395,7 +382,7 @@
 
   .panel,
   .stats-panel {
-    background: rgba(255, 255, 255, 0.86);
+    background: rgba(255, 255, 255, 0.88);
     border: 1px solid rgba(234, 223, 205, 0.96);
     border-radius: var(--radius-xl);
     padding: 26px;
@@ -436,7 +423,7 @@
   .stat-label {
     color: var(--muted);
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 4px;
   }
 
@@ -467,7 +454,7 @@
     color: var(--muted);
     font-size: 13px;
     margin-bottom: 6px;
-    font-weight: 700;
+    font-weight: 800;
   }
 
   .value {
@@ -482,7 +469,7 @@
     flex-wrap: wrap;
     margin-top: 24px;
     padding: 7px;
-    background: rgba(248, 242, 230, 0.86);
+    background: rgba(248, 242, 230, 0.88);
     border: 1px solid var(--border);
     border-radius: 22px;
   }
@@ -511,7 +498,7 @@
   .actions .btn-light {
     padding: 11px 17px;
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 900;
     border-radius: 14px;
     min-height: 44px;
     white-space: nowrap;
@@ -526,6 +513,7 @@
     line-height: 1.7;
   }
 
+  /* DESKTOP TABLE */
   .table-wrap {
     width: 100%;
     overflow-x: auto;
@@ -533,7 +521,7 @@
     margin-top: 16px;
     border: 1px solid var(--border);
     border-radius: 24px;
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.94);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
   }
 
@@ -565,7 +553,7 @@
 
   td {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.45;
     padding: 15px 14px;
     color: #1f2937;
@@ -616,6 +604,7 @@
     margin-bottom: 18px;
   }
 
+  /* TABLET */
   @media (max-width: 920px) {
     .app {
       padding: 18px;
@@ -643,517 +632,440 @@
     table {
       min-width: 860px;
     }
-
-    th {
-      font-size: 11px;
-      padding: 13px 12px;
-    }
-
-    td {
-      font-size: 13px;
-      padding: 13px 12px;
-    }
-
-    td strong {
-      font-size: 13px;
-    }
   }
 
-  @media (max-width: 560px) {
-    .page {
-      padding: 16px;
-    }
-
-    .card {
-      padding: 28px 22px;
-      border-radius: 28px;
+  /* MOBILE APP UI */
+  @media screen and (max-width: 760px) {
+    html,
+    body {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(200, 161, 90, 0.18), transparent 32%),
+        linear-gradient(180deg, #fbf6ea 0%, #f4ead7 100%) !important;
     }
 
     .app {
-      padding: 12px;
+      padding: 10px !important;
+      width: 100% !important;
+      overflow-x: hidden !important;
+    }
+
+    .shell {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .topbar,
+    .panel,
+    .stats-panel {
+      width: 100% !important;
+      border-radius: 24px !important;
+      padding: 18px !important;
+      margin-bottom: 14px !important;
     }
 
     .topbar {
-      padding: 22px;
+      display: block !important;
     }
 
     .topbar h2 {
-      font-size: 24px;
+      font-size: 23px !important;
+      line-height: 1.25 !important;
+    }
+
+    .eyebrow {
+      font-size: 10px !important;
+      letter-spacing: 0.15em !important;
     }
 
     .top-desc {
-      font-size: 13px;
+      font-size: 13px !important;
+      line-height: 1.55 !important;
+    }
+
+    #userEmail {
+      font-size: 12px !important;
+      max-width: 100%;
+      word-break: break-all;
+    }
+
+    .btn-logout {
+      width: 100% !important;
+      margin-top: 8px !important;
+    }
+
+    .grid {
+      display: block !important;
+    }
+
+    h3,
+    #guestTab h3,
+    #rsvpTab h3 {
+      font-size: 21px !important;
+      line-height: 1.3 !important;
+      margin-bottom: 16px !important;
+    }
+
+    .row {
+      padding: 13px 0 !important;
+    }
+
+    .label {
+      font-size: 13px !important;
+    }
+
+    .value {
+      font-size: 18px !important;
+      line-height: 1.45 !important;
+    }
+
+    .value a {
+      font-size: 16px !important;
+      word-break: break-all !important;
+    }
+
+    .tabs {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 8px !important;
+      padding: 7px !important;
+      border-radius: 20px !important;
     }
 
     .tab {
-      min-width: 100%;
+      width: 100% !important;
+      min-width: 0 !important;
+      font-size: 15px !important;
+      padding: 13px 14px !important;
+      border-radius: 15px !important;
     }
 
-    button {
-      width: 100%;
+    .stat-card {
+      padding: 16px !important;
+      border-radius: 20px !important;
+    }
+
+    .stat-icon {
+      width: 46px !important;
+      height: 46px !important;
+      border-radius: 16px !important;
+      font-size: 20px !important;
+    }
+
+    .stat-label {
+      font-size: 12px !important;
+    }
+
+    .stat-number {
+      font-size: 30px !important;
+    }
+
+    .stat-text {
+      font-size: 16px !important;
+    }
+
+    textarea {
+      min-height: 120px !important;
+      font-size: 14px !important;
     }
 
     .actions {
-      gap: 8px;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 8px !important;
+      margin: 14px 0 16px !important;
     }
 
     .actions button,
-    .actions .btn-light {
-      width: auto;
-      flex: 1 1 calc(50% - 8px);
-      min-width: 0;
-      font-size: 12px;
-      padding: 10px 10px;
-      min-height: 40px;
+    .actions .btn-light,
+    .actions .btn-main {
+      width: 100% !important;
+      min-width: 0 !important;
+      padding: 12px 10px !important;
+      font-size: 13px !important;
+      border-radius: 14px !important;
+    }
+
+    #guestCreateMsg {
+      font-size: 16px !important;
+      line-height: 1.45 !important;
+      margin: 12px 0 !important;
     }
 
     .table-wrap {
-      border-radius: 18px;
+      width: 100% !important;
+      overflow: visible !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      margin-top: 14px !important;
     }
 
-    table {
-      min-width: 780px;
+    table,
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+      display: block !important;
+      width: 100% !important;
+      min-width: 0 !important;
     }
 
-    th {
-      font-size: 10px;
-      letter-spacing: 0.025em;
-      padding: 12px 10px;
+    thead {
+      display: none !important;
+    }
+
+    tbody {
+      display: grid !important;
+      gap: 12px !important;
+    }
+
+    tr {
+      background: rgba(255, 255, 255, 0.96) !important;
+      border: 1px solid rgba(234, 223, 205, 0.95) !important;
+      border-radius: 22px !important;
+      padding: 16px !important;
+      box-shadow: 0 10px 26px rgba(19, 34, 1, 0.08) !important;
+    }
+
+    tr:hover td {
+      background: transparent !important;
     }
 
     td {
-      font-size: 12px;
-      line-height: 1.45;
-      padding: 12px 10px;
+      position: relative !important;
+      border-bottom: 1px solid #f1eadf !important;
+      padding: 10px 0 !important;
+      font-size: 14px !important;
+      line-height: 1.5 !important;
+      text-align: left !important;
+      color: #1f2937 !important;
+    }
+
+    td:last-child {
+      border-bottom: 0 !important;
+    }
+
+    td::before {
+      display: block !important;
+      margin-bottom: 5px !important;
+      color: #7b6a4b !important;
+      font-size: 11px !important;
+      font-weight: 900 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
     }
 
     td strong {
-      font-size: 12px;
+      font-size: 16px !important;
+      color: #101d0a !important;
+      font-weight: 900 !important;
     }
 
     .small {
-      font-size: 11px;
+      display: block !important;
+      text-align: left !important;
+      font-size: 12px !important;
+      margin-top: 4px !important;
     }
 
-    .btn-danger,
-    .btn-copy {
-      font-size: 12px;
-      padding: 8px 10px;
-      min-width: 58px;
+    .link-cell,
+    td a {
+      display: block !important;
+      max-width: 100% !important;
+      word-break: break-all !important;
+      font-size: 13px !important;
+      line-height: 1.5 !important;
     }
 
-    #rsvpTab h3,
-    #guestTab h3 {
-      font-size: 22px;
-      margin-bottom: 14px;
+    /* GUEST MOBILE CARD - COMPACT */
+    #guestTab td:nth-child(1) {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      gap: 12px !important;
+      border-bottom: 0 !important;
+      padding: 0 0 8px 0 !important;
+    }
+
+    #guestTab td:nth-child(1)::before {
+      display: none !important;
+    }
+
+    #guestTab td:nth-child(1) strong {
+      font-size: 20px !important;
+      line-height: 1.35 !important;
+    }
+
+    #guestTab td:nth-child(1) .small {
+      font-size: 11px !important;
+      color: #8a806c !important;
+      text-align: right !important;
+      min-width: 92px !important;
+      line-height: 1.35 !important;
+    }
+
+    /* Ẩn link dài trên mobile */
+    #guestTab td:nth-child(2) {
+      display: none !important;
+    }
+
+    #guestTab td:nth-child(2)::before {
+      display: none !important;
+    }
+
+    #guestTab td:nth-child(3) {
+      display: flex !important;
+      justify-content: flex-start !important;
+      align-items: center !important;
+      gap: 8px !important;
+      border-bottom: 0 !important;
+      padding: 4px 0 12px 0 !important;
+      font-size: 13px !important;
+      color: #6f7568 !important;
+    }
+
+    #guestTab td:nth-child(3)::before {
+      content: "Đã mở" !important;
+      display: inline-block !important;
+      margin: 0 !important;
+      color: #7b6a4b !important;
+      font-size: 12px !important;
+      font-weight: 800 !important;
+      text-transform: none !important;
+      letter-spacing: 0 !important;
+    }
+
+    #guestTab td:nth-child(3)::after {
+      content: "lượt";
+      color: #6f7568;
+      font-size: 13px;
+    }
+
+    #guestTab td:nth-child(4) {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr 48px !important;
+      gap: 8px !important;
+      padding: 0 !important;
+      border-bottom: 0 !important;
+    }
+
+    #guestTab td:nth-child(4)::before {
+      display: none !important;
+    }
+
+    #guestTab td:nth-child(4) button {
+      width: 100% !important;
+      height: 44px !important;
+      margin: 0 !important;
+      padding: 0 10px !important;
+      border-radius: 14px !important;
+      font-size: 14px !important;
+      font-weight: 900 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    #guestTab .btn-copy {
+      background: linear-gradient(135deg, #e8f1ff, #dceafe) !important;
+      color: #1746a2 !important;
+      border: 1px solid rgba(29, 78, 216, 0.12) !important;
+    }
+
+    #guestTab .btn-copy::before {
+      content: "📋 ";
+      margin-right: 4px;
+    }
+
+    #guestTab .btn-mess {
+      background: linear-gradient(135deg, #edf0ff, #dde5ff) !important;
+      color: #30308f !important;
+      border: 1px solid rgba(55, 48, 163, 0.12) !important;
+    }
+
+    #guestTab .btn-mess::before {
+      content: "💬 ";
+      margin-right: 4px;
+    }
+
+    #guestTab .btn-danger {
+      background: linear-gradient(135deg, #ffe4e6, #ffd1d6) !important;
+      color: #a41414 !important;
+      border: 1px solid rgba(164, 20, 20, 0.12) !important;
+      min-width: 48px !important;
+      font-size: 0 !important;
+    }
+
+    #guestTab .btn-danger::before {
+      content: "🗑";
+      font-size: 16px !important;
+    }
+
+    /* RSVP MOBILE CARD */
+    #rsvpTab td:nth-child(1)::before { content: "Khách mời" !important; }
+    #rsvpTab td:nth-child(2)::before { content: "Tham dự" !important; }
+    #rsvpTab td:nth-child(3)::before { content: "Số người" !important; }
+    #rsvpTab td:nth-child(4)::before { content: "Nhà" !important; }
+    #rsvpTab td:nth-child(5)::before { content: "Lời chúc" !important; }
+    #rsvpTab td:nth-child(6)::before { content: "Thời gian" !important; }
+    #rsvpTab td:nth-child(7)::before { content: "Xoá" !important; }
+
+    #rsvpTab td:last-child button {
+      width: 100% !important;
+      height: 42px !important;
+      border-radius: 14px !important;
+    }
+
+    td[colspan] {
+      text-align: center !important;
+      color: #6f7568 !important;
+      font-weight: 700 !important;
+    }
+
+    td[colspan]::before {
+      display: none !important;
+      content: "" !important;
     }
   }
-  /* =====================================================
-   MOBILE APP STYLE FIX - EWedding Admin
-   Desktop giữ bảng, mobile chuyển sang card app cao cấp
-   ===================================================== */
 
-@media (max-width: 720px) {
-  body {
-    background:
-      radial-gradient(circle at 20% 0%, rgba(200, 161, 90, 0.18), transparent 32%),
-      linear-gradient(180deg, #fbf6ea 0%, #f4ead7 100%);
+  @media screen and (max-width: 430px) {
+    .app {
+      padding: 8px !important;
+    }
+
+    .panel,
+    .stats-panel,
+    .topbar {
+      padding: 16px !important;
+      border-radius: 22px !important;
+    }
+
+    .actions {
+      grid-template-columns: 1fr !important;
+    }
+
+    #guestTab td:nth-child(4) {
+      grid-template-columns: 1fr 1fr 44px !important;
+    }
+
+    #guestTab td:nth-child(4) button {
+      height: 42px !important;
+      font-size: 13px !important;
+    }
+
+    #guestTab td:nth-child(1) strong {
+      font-size: 19px !important;
+    }
+
+    #guestTab td:nth-child(1) .small {
+      font-size: 10.5px !important;
+      min-width: 86px !important;
+    }
   }
-
-  .app {
-    padding: 10px;
-  }
-
-  .shell {
-    max-width: 100%;
-  }
-
-  .topbar {
-    margin: 8px 0 14px;
-    padding: 22px;
-    border-radius: 26px;
-    width: 100%;
-  }
-
-  .topbar h2 {
-    font-size: 25px;
-    line-height: 1.2;
-  }
-
-  .eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-  }
-
-  .top-desc {
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  #userEmail {
-    font-size: 12px !important;
-    max-width: 100%;
-    word-break: break-all;
-  }
-
-  .btn-logout {
-    width: 100%;
-    margin-top: 8px;
-  }
-
-  .grid {
-    display: block;
-  }
-
-  .panel,
-  .stats-panel {
-    border-radius: 24px;
-    padding: 20px;
-    margin-bottom: 14px;
-  }
-
-  h3,
-  #guestTab h3,
-  #rsvpTab h3 {
-    font-size: 21px;
-    line-height: 1.3;
-    margin-bottom: 16px;
-  }
-
-  .row {
-    padding: 13px 0;
-  }
-
-  .label {
-    font-size: 13px;
-  }
-
-  .value {
-    font-size: 18px;
-    line-height: 1.45;
-  }
-
-  .value a {
-    font-size: 16px;
-    word-break: break-all;
-  }
-
-  .tabs {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 7px;
-    border-radius: 20px;
-  }
-
-  .tab {
-    width: 100%;
-    min-width: 0;
-    font-size: 15px;
-    padding: 13px 14px;
-    border-radius: 15px;
-  }
-
-  .stat-card {
-    padding: 16px;
-    border-radius: 20px;
-  }
-
-  .stat-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 16px;
-    font-size: 20px;
-  }
-
-  .stat-label {
-    font-size: 12px;
-  }
-
-  .stat-number {
-    font-size: 30px;
-  }
-
-  .stat-text {
-    font-size: 16px;
-  }
-
-  textarea {
-    min-height: 120px;
-    font-size: 14px;
-  }
-
-  .actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
-    margin: 14px 0 16px;
-  }
-
-  .actions button,
-  .actions .btn-light,
-  .actions .btn-main {
-    width: 100%;
-    min-width: 0;
-    padding: 12px 10px;
-    font-size: 13px;
-    border-radius: 14px;
-  }
-
-  #guestCreateMsg {
-    font-size: 16px;
-    line-height: 1.45;
-    margin: 12px 0;
-  }
-
-  /* Mobile không dùng bảng ngang nữa */
-  .table-wrap {
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-    overflow: visible;
-    margin-top: 14px;
-  }
-
-  table {
-    min-width: 0 !important;
-    width: 100%;
-    display: block;
-    border-collapse: separate;
-  }
-
-  thead {
-    display: none;
-  }
-
-  tbody {
-    display: grid;
-    gap: 12px;
-  }
-
-  tr {
-    display: block;
-    background: rgba(255, 255, 255, 0.93);
-    border: 1px solid rgba(234, 223, 205, 0.95);
-    border-radius: 22px;
-    padding: 14px;
-    box-shadow: 0 10px 26px rgba(19, 34, 1, 0.07);
-  }
-
-  tr:hover td {
-    background: transparent;
-  }
-
-  td {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 14px;
-    width: 100%;
-    border-bottom: 1px solid #f1eadf;
-    padding: 10px 0;
-    font-size: 14px;
-    line-height: 1.5;
-    text-align: right !important;
-  }
-
-  td:last-child {
-    border-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  td::before {
-    content: "";
-    flex: 0 0 118px;
-    text-align: left;
-    color: #7b6a4b;
-    font-size: 11px;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  td strong {
-    font-size: 15px;
-    line-height: 1.4;
-  }
-
-  .small {
-    display: block;
-    font-size: 12px;
-    text-align: right;
-  }
-
-  .link-cell,
-  td a {
-    max-width: 100%;
-    word-break: break-all;
-    line-height: 1.5;
-  }
-
-  /* Label cho bảng khách mời */
-  #guestTab td:nth-child(1)::before {
-    content: "Tên khách";
-  }
-
-  #guestTab td:nth-child(2)::before {
-    content: "Link";
-  }
-
-  #guestTab td:nth-child(3)::before {
-    content: "Lượt mở";
-  }
-
-  #guestTab td:nth-child(4)::before {
-    content: "Thao tác";
-  }
-
-  /* Label cho bảng RSVP */
-  #rsvpTab td:nth-child(1)::before {
-    content: "Khách mời";
-  }
-
-  #rsvpTab td:nth-child(2)::before {
-    content: "Tham dự";
-  }
-
-  #rsvpTab td:nth-child(3)::before {
-    content: "Số người";
-  }
-
-  #rsvpTab td:nth-child(4)::before {
-    content: "Nhà";
-  }
-
-  #rsvpTab td:nth-child(5)::before {
-    content: "Lời chúc";
-  }
-
-  #rsvpTab td:nth-child(6)::before {
-    content: "Thời gian";
-  }
-
-  #rsvpTab td:nth-child(7)::before {
-    content: "Xoá";
-  }
-
-  /* Ô thao tác khách mời */
-  #guestTab td:nth-child(4) {
-    display: block;
-    text-align: left !important;
-  }
-
-  #guestTab td:nth-child(4)::before {
-    display: block;
-    margin-bottom: 10px;
-    flex: none;
-  }
-
-  #guestTab td:nth-child(4) button {
-    width: 100%;
-    margin: 0 0 8px 0 !important;
-    padding: 12px 14px;
-    font-size: 14px;
-    border-radius: 15px;
-  }
-
-  #guestTab td:nth-child(4) button:last-child {
-    margin-bottom: 0 !important;
-  }
-
-  .btn-copy {
-    background: linear-gradient(135deg, #e8f1ff, #dceafe);
-    color: #1746a2;
-    font-weight: 900;
-  }
-
-  .btn-mess {
-    background: linear-gradient(135deg, #eef2ff, #dbe3ff);
-    color: #3530a3;
-    font-weight: 900;
-  }
-
-  .btn-danger {
-    background: linear-gradient(135deg, #ffe4e6, #ffd1d6);
-    color: #a41414;
-    font-weight: 900;
-  }
-
-  /* RSVP nút xoá */
-  #rsvpTab td:last-child {
-    display: block;
-    text-align: left !important;
-  }
-
-  #rsvpTab td:last-child::before {
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  #rsvpTab td:last-child button {
-    width: 100%;
-    padding: 12px 14px;
-    font-size: 14px;
-    border-radius: 15px;
-  }
-
-  /* Dòng báo không có dữ liệu */
-  td[colspan] {
-    display: block;
-    text-align: center !important;
-    color: #6f7568;
-    font-weight: 700;
-    border-bottom: 0;
-  }
-
-  td[colspan]::before {
-    display: none;
-  }
-}
-
-/* Mobile nhỏ hơn nữa */
-@media (max-width: 420px) {
-  .app {
-    padding: 8px;
-  }
-
-  .topbar,
-  .panel,
-  .stats-panel {
-    border-radius: 22px;
-  }
-
-  .panel,
-  .stats-panel {
-    padding: 18px;
-  }
-
-  .topbar {
-    padding: 20px;
-  }
-
-  .topbar h2 {
-    font-size: 23px;
-  }
-
-  .actions {
-    grid-template-columns: 1fr;
-  }
-
-  td {
-    display: block;
-    text-align: left !important;
-  }
-
-  td::before {
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  .small {
-    text-align: left;
-  }
-}
 </style>
 </head>
 

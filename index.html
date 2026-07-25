@@ -1262,9 +1262,9 @@
 
       <div class="topbar">
   <div>
-    <div class="eyebrow">EWEDDING MANAGEMENT</div>
-    <h2>Dashboard Thiệp Cưới</h2>
-    <p class="top-desc">Quản lý khách mời, link cá nhân hoá, RSVP và lời chúc trong một nơi.</p>
+    <div class="eyebrow">THIỆP CƯỚI ONLINE EWEDDING</div>
+    <h2>Quản Lý Thiệp Cưới</h2>
+    <p class="top-desc">Quản lý khách mời, link cá nhân hoá, RSVP và lời chúc.</p>
     <div id="userEmail"></div>
   </div>
 
@@ -1280,7 +1280,7 @@
           </div>
 
           <div class="tabs">
-            <button class="tab active" onclick="showTab('guest')">1. Cá nhân hoá khách mời</button>
+            <button class="tab active" onclick="showTab('guest')">1. Điền tên khách mờiton>
             <button class="tab" onclick="showTab('rsvp')">2. RSVP & lời chúc</button>
           </div>
         </div>
@@ -1289,7 +1289,7 @@
   <div class="stat-card">
     <div class="stat-icon">💌</div>
     <div>
-      <div class="stat-label">Khách đã tạo link</div>
+      <div class="stat-label">Tổng link đã tạo
       <div id="guestCount" class="stat-number">0</div>
     </div>
   </div>
@@ -1317,7 +1317,7 @@
 
   <div class="row">
     <div class="label">Nhập danh sách khách mời</div>
-    <textarea id="guestNamesInput" placeholder="Mỗi khách một dòng, ví dụ:&#10;Ban Long Ơi&#10;Anh Minh&#10;Chị Hương"></textarea>
+    <textarea id="guestNamesInput" placeholder="Mỗi khách một dòng, ví dụ:&#10;Ban Long#10;Anh Minh&#10;Chị Hương"></textarea>
 
     <div class="actions">
       <button class="btn-main" onclick="createGuestLinks()">Tạo link cá nhân hoá</button>
@@ -1492,7 +1492,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
         </div>
 
         <div class="row">
-          <div class="label">Link thiệp gốc</div>
+          <div class="label">Link thiệp</div>
           <div class="value">
             <a href="${escapeHtml(data.original_url)}" target="_blank">
               ${escapeHtml(data.original_url)}

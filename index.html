@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EWedding Admin</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --green: #132201;
+      --beige: #f5f5dc;
+      --white: #ffffff;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --blue: #2f6fed;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--beige);
+      color: var(--green);
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--white);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 16px 40px rgba(19, 34, 1, 0.12);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 15px;
+      margin-bottom: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--green);
+    }
+
+    button {
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .btn-main {
+      width: 100%;
+      background: var(--green);
+      color: var(--beige);
+    }
+
+    .btn-light {
+      background: #eef2ff;
+      color: #1f2937;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .error {
+      color: #b91c1c;
+      font-size: 14px;
+      margin-top: 12px;
+      text-align: center;
+      min-height: 20px;
+    }
+
+    .app {
+      display: none;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 10px 28px rgba(19, 34, 1, 0.08);
+      margin-bottom: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .panel {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(19, 34, 1, 0.08);
+    }
+
+    .row {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .row:last-child {
+      border-bottom: 0;
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .value {
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .tab {
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .tab.active {
+      background: var(--green);
+      color: var(--beige);
+    }
+
+    .placeholder {
+      padding: 24px;
+      background: #fafafa;
+      border: 1px dashed #d1d5db;
+      border-radius: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (min-width: 800px) {
+      .grid {
+        grid-template-columns: 1.2fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section id="loginPage" class="page">
+    <div class="card">
+      <div class="logo">EWedding Admin</div>
+      <div class="sub">Đăng nhập để quản lý thiệp cưới</div>
+
+      <label>Email</label>
+      <input id="email" type="email" placeholder="Nhập email dâu rể" />
+
+      <label>Mật khẩu</label>
+      <input id="password" type="password" placeholder="Nhập mật khẩu" />
+
+      <button class="btn-main" onclick="login()">Đăng nhập</button>
+
+      <div id="loginError" class="error"></div>
+    </div>
+  </section>
+
+  <section id="appPage" class="app">
+    <div class="shell">
+
+      <div class="topbar">
+        <div>
+          <h2 style="margin:0">Dashboard Thiệp Cưới</h2>
+          <div id="userEmail" style="color:#6b7280;font-size:14px;margin-top:4px"></div>
+        </div>
+
+        <button class="btn-danger" onclick="logout()">Đăng xuất</button>
+      </div>
+
+      <div class="grid">
+        <div class="panel">
+          <h3>Thiệp của bạn</h3>
+
+          <div id="weddingBox">
+            Đang tải dữ liệu...
+          </div>
+
+          <div class="tabs">
+            <button class="tab active" onclick="showTab('guest')">1. Cá nhân hoá khách mời</button>
+            <button class="tab" onclick="showTab('rsvp')">2. RSVP & lời chúc</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Thống kê nhanh</h3>
+          <div class="row">
+            <div class="label">Tổng khách đã tạo link</div>
+            <div id="guestCount" class="value">0</div>
+          </div>
+          <div class="row">
+            <div class="label">Tổng phản hồi RSVP</div>
+            <div id="rsvpCount" class="value">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:18px">
+        <div id="guestTab">
+          <h3>Tab 1: Cá nhân hoá tên khách mời</h3>
+          <div class="placeholder">
+            Bài tiếp theo mình sẽ đưa công cụ tạo link hiện tại vào đây.
+            Dâu rể chỉ cần nhập danh sách khách, hệ thống sẽ tự tạo link ngắn go.ewedding.site.
+          </div>
+        </div>
+
+        <div id="rsvpTab" style="display:none">
+          <h3>Tab 2: RSVP & lời chúc</h3>
+          <div class="placeholder">
+            Bài sau nữa mình sẽ nối form WebCake vào đây để xem danh sách khách tham dự,
+            lời chúc, nhà trai/gái và số người đi dự.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+   const SUPABASE_URL = "https://bahqoutarbxgvjxbrlhy.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhaHFvdXRhcmJ4Z3ZqeGJybGh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4OTUxMTAsImV4cCI6MjEwMDQ3MTExMH0.oG2j-jbPb5xupW5L7grXVWrMDXVtZmeXk5hNzA1_KbA";
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let currentUser = null;
+    let currentWedding = null;
+
+    init();
+
+    async function init() {
+      const { data } = await supabaseClient.auth.getSession();
+
+      if (data.session) {
+        currentUser = data.session.user;
+        showApp();
+        await loadDashboard();
+      } else {
+        showLogin();
+      }
+    }
+
+    async function login() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorBox = document.getElementById("loginError");
+
+      errorBox.textContent = "";
+
+      if (!email || !password) {
+        errorBox.textContent = "Vui lòng nhập email và mật khẩu.";
+        return;
+      }
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        errorBox.textContent = "Đăng nhập thất bại. Kiểm tra email/mật khẩu.";
+        return;
+      }
+
+      currentUser = data.user;
+      showApp();
+      await loadDashboard();
+    }
+
+    async function logout() {
+      await supabaseClient.auth.signOut();
+      currentUser = null;
+      currentWedding = null;
+      showLogin();
+    }
+
+    function showLogin() {
+      document.getElementById("loginPage").style.display = "flex";
+      document.getElementById("appPage").style.display = "none";
+    }
+
+    function showApp() {
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("appPage").style.display = "block";
+      document.getElementById("userEmail").textContent = currentUser.email || "";
+    }
+
+    async function loadDashboard() {
+      await loadWedding();
+      await loadStats();
+    }
+
+    async function loadWedding() {
+      const box = document.getElementById("weddingBox");
+
+      const { data, error } = await supabaseClient
+        .from("weddings")
+        .select("*")
+        .eq("user_id", currentUser.id)
+        .limit(1)
+        .single();
+
+      if (error || !data) {
+        box.innerHTML = `
+          <div class="placeholder">
+            Chưa tìm thấy thiệp cho tài khoản này.
+            Bác kiểm tra lại bảng <b>weddings</b> xem đã thêm đúng <b>user_id</b> chưa.
+          </div>
+        `;
+        return;
+      }
+
+      currentWedding = data;
+
+      box.innerHTML = `
+        <div class="row">
+          <div class="label">Tên thiệp</div>
+          <div class="value">${escapeHtml(data.wedding_title || "Chưa đặt tên")}</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Dâu Rể</div>
+          <div class="value">${escapeHtml(data.groom_name || "")} & ${escapeHtml(data.bride_name || "")}</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Link thiệp gốc</div>
+          <div class="value">
+            <a href="${escapeHtml(data.original_url)}" target="_blank">
+              ${escapeHtml(data.original_url)}
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">Trạng thái</div>
+          <div class="value">${data.is_active ? "Đang hoạt động" : "Tạm tắt"}</div>
+        </div>
+      `;
+    }
+
+    async function loadStats() {
+      if (!currentWedding) return;
+
+      const { count: guestsCount } = await supabaseClient
+        .from("guests")
+        .select("*", { count: "exact", head: true })
+        .eq("wedding_id", currentWedding.id);
+
+      const { count: rsvpsCount } = await supabaseClient
+        .from("rsvps")
+        .select("*", { count: "exact", head: true })
+        .eq("wedding_id", currentWedding.id);
+
+      document.getElementById("guestCount").textContent = guestsCount || 0;
+      document.getElementById("rsvpCount").textContent = rsvpsCount || 0;
+    }
+
+    function showTab(tab) {
+      document.getElementById("guestTab").style.display = tab === "guest" ? "block" : "none";
+      document.getElementById("rsvpTab").style.display = tab === "rsvp" ? "block" : "none";
+
+      const buttons = document.querySelectorAll(".tab");
+      buttons.forEach(btn => btn.classList.remove("active"));
+
+      if (tab === "guest") {
+        buttons[0].classList.add("active");
+      } else {
+        buttons[1].classList.add("active");
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  </script>
+
+</body>
+</html>

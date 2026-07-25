@@ -571,10 +571,10 @@
           <div id="weddingBox">Đang tải dữ liệu...</div>
 
           <div class="tabs">
-            <button class="tab active" onclick="showTab('guest')">1. Điền tên khách mời</button>
-            <button class="tab" onclick="showTab('rsvp')">2. RSVP & lời chúc</button>
-          </div>
-        </div>
+  <button class="tab active" onclick="showTab('guest')">1. Điền tên khách mời</button>
+  <button class="tab" onclick="showTab('rsvp')">2. RSVP & lời chúc</button>
+  <button class="tab" onclick="showTab('admin')">3. Quản trị</button>
+</div>
 
         <div class="stats-panel">
           <div class="stat-card">
@@ -670,9 +670,46 @@
             </table>
           </div>
         </div>
-      </div>
+      <div id="adminTab" style="display:none">
+  <h3>Tab 3: Tạo tài khoản dâu rể</h3>
+
+  <div class="row">
+    <div class="label">Mã quản trị</div>
+    <input id="adminSecretInput" type="password" placeholder="Nhập mã quản trị đã tạo trong Worker" />
+
+    <div class="label">Email dâu rể</div>
+    <input id="clientEmailInput" type="email" placeholder="Ví dụ: codau@gmail.com" />
+
+    <div class="label">Mật khẩu đăng nhập</div>
+    <input id="clientPasswordInput" type="text" placeholder="Ví dụ: DamCuoi@2026" />
+
+    <div class="label">Tên hiển thị</div>
+    <input id="clientDisplayNameInput" type="text" placeholder="Ví dụ: Hồng Phong & Diễm Quyên" />
+
+    <div class="label">Tên chú rể</div>
+    <input id="groomNameInput" type="text" placeholder="Ví dụ: Hồng Phong" />
+
+    <div class="label">Tên cô dâu</div>
+    <input id="brideNameInput" type="text" placeholder="Ví dụ: Diễm Quyên" />
+
+    <div class="label">Tên thiệp</div>
+    <input id="weddingTitleInput" type="text" placeholder="Ví dụ: Wedding Invitation - Hồng Phong & Diễm Quyên" />
+
+    <div class="label">Link thiệp WebCake</div>
+    <input id="originalUrlInput" type="url" placeholder="https://www.ewedding.site/ten-thiep" />
+
+    <div class="actions">
+      <button class="btn-main" onclick="createClientFromDashboard()">Tạo tài khoản dâu rể</button>
+      <button class="btn-light" onclick="clearCreateClientForm()">Xoá form</button>
     </div>
-  </section>
+
+    <div id="createClientMsg" class="success"></div>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </section>
 
   <script>
     const SUPABASE_URL = "https://bahqoutarbxgvjxbrlhy.supabase.co";
@@ -1153,15 +1190,20 @@
     }
 
     function showTab(tab) {
-      document.getElementById("guestTab").style.display = tab === "guest" ? "block" : "none";
-      document.getElementById("rsvpTab").style.display = tab === "rsvp" ? "block" : "none";
+  document.getElementById("guestTab").style.display = tab === "guest" ? "block" : "none";
+  document.getElementById("rsvpTab").style.display = tab === "rsvp" ? "block" : "none";
 
-      const buttons = document.querySelectorAll(".tab");
-      buttons.forEach(btn => btn.classList.remove("active"));
+  const adminTab = document.getElementById("adminTab");
+  if (adminTab) {
+    adminTab.style.display = tab === "admin" ? "block" : "none";
+  }
 
-      if (tab === "guest") buttons[0].classList.add("active");
-      else buttons[1].classList.add("active");
-    }
+  document.querySelectorAll(".tab").forEach(btn => btn.classList.remove("active"));
+
+  if (tab === "guest") document.querySelectorAll(".tab")[0].classList.add("active");
+  if (tab === "rsvp") document.querySelectorAll(".tab")[1].classList.add("active");
+  if (tab === "admin") document.querySelectorAll(".tab")[2].classList.add("active");
+}
 
     function escapeHtml(str) {
       return String(str || "")
@@ -1170,6 +1212,90 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;");
     }
+    async function createClientFromDashboard() {
+  const msg = document.getElementById("createClientMsg");
+
+  const adminSecret = document.getElementById("adminSecretInput").value.trim();
+  const email = document.getElementById("clientEmailInput").value.trim();
+  const password = document.getElementById("clientPasswordInput").value.trim();
+  const displayName = document.getElementById("clientDisplayNameInput").value.trim();
+  const groomName = document.getElementById("groomNameInput").value.trim();
+  const brideName = document.getElementById("brideNameInput").value.trim();
+  const weddingTitle = document.getElementById("weddingTitleInput").value.trim();
+  const originalUrl = document.getElementById("originalUrlInput").value.trim();
+
+  msg.textContent = "";
+  msg.style.color = "#047857";
+
+  if (!adminSecret || !email || !password || !originalUrl) {
+    msg.style.color = "#a41414";
+    msg.textContent = "Bác nhập đủ mã quản trị, email, mật khẩu và link thiệp nhé.";
+    return;
+  }
+
+  msg.textContent = "Đang tạo tài khoản dâu rể, bác chờ chút...";
+
+  try {
+    const res = await fetch("https://go.ewedding.site/admin/create-client", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        admin_secret: adminSecret,
+        email: email,
+        password: password,
+        display_name: displayName,
+        wedding_title: weddingTitle,
+        bride_name: brideName,
+        groom_name: groomName,
+        original_url: originalUrl
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.ok) {
+      msg.style.color = "#a41414";
+      msg.textContent = "Không tạo được: " + JSON.stringify(data.error || data);
+      console.log(data);
+      return;
+    }
+
+    msg.style.color = "#047857";
+    msg.innerHTML = `
+      Đã tạo thành công tài khoản dâu rể ✅<br>
+      Email: <b>${escapeHtml(email)}</b><br>
+      Mật khẩu: <b>${escapeHtml(password)}</b><br>
+      Link quản lý: <b>https://quanly.ewedding.site</b>
+    `;
+
+  } catch (err) {
+    msg.style.color = "#a41414";
+    msg.textContent = "Lỗi kết nối API: " + err.message;
+    console.log(err);
+  }
+}
+
+function clearCreateClientForm() {
+  const ids = [
+    "clientEmailInput",
+    "clientPasswordInput",
+    "clientDisplayNameInput",
+    "groomNameInput",
+    "brideNameInput",
+    "weddingTitleInput",
+    "originalUrlInput"
+  ];
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+
+  const msg = document.getElementById("createClientMsg");
+  if (msg) msg.textContent = "";
+}
   </script>
 </body>
 </html>

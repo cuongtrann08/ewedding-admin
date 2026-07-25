@@ -9,203 +9,746 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    :root {
-      --green: #132201;
-      --beige: #f5f5dc;
-      --white: #ffffff;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --blue: #2f6fed;
-    }
+  @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap');
 
-    * {
-      box-sizing: border-box;
-    }
+  :root {
+    --green: #101d0a;
+    --green-2: #1f3214;
+    --green-3: #31491f;
+    --cream: #f8f2e6;
+    --cream-2: #efe4d1;
+    --white: #ffffff;
+    --gold: #c8a15a;
+    --gold-2: #e8d6a8;
+    --gold-soft: #fbf3df;
+    --text: #17210f;
+    --muted: #6f7568;
+    --border: #eadfcd;
+    --danger: #a41414;
+    --danger-soft: #fee2e2;
+    --blue: #1d4ed8;
+    --blue-soft: #e8f1ff;
+    --success: #047857;
+    --shadow: 0 26px 70px rgba(19, 34, 1, 0.14);
+    --shadow-soft: 0 14px 34px rgba(19, 34, 1, 0.08);
+    --radius-xl: 34px;
+    --radius-lg: 26px;
+    --radius-md: 18px;
+    --radius-sm: 13px;
+  }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--beige);
-      color: var(--green);
-    }
+  * {
+    box-sizing: border-box;
+  }
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
+  body {
+    margin: 0;
+    font-family: 'Be Vietnam Pro', Arial, sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(200, 161, 90, 0.28), transparent 28%),
+      radial-gradient(circle at 88% 16%, rgba(16, 29, 10, 0.16), transparent 26%),
+      linear-gradient(135deg, #fffaf0 0%, var(--cream) 45%, #efe3cf 100%);
+    min-height: 100vh;
+  }
 
-    .card {
-      width: 100%;
-      max-width: 460px;
-      background: var(--white);
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 16px 40px rgba(19, 34, 1, 0.12);
-    }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.35) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity: 0.35;
+  }
 
-    h1, h2, h3 {
-      margin-top: 0;
-    }
+  a {
+    color: var(--green);
+    font-weight: 700;
+    text-decoration: none;
+  }
 
-    .logo {
-      font-size: 30px;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 8px;
-    }
+  a:hover {
+    color: var(--gold);
+  }
 
-    .sub {
-      text-align: center;
-      color: var(--muted);
-      margin-bottom: 28px;
-      font-size: 14px;
-    }
+  .page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
 
-    label {
-      display: block;
-      font-weight: 700;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
+  .card {
+    width: 100%;
+    max-width: 480px;
+    padding: 38px;
+    border-radius: 36px;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(234, 223, 205, 0.9);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    position: relative;
+    overflow: hidden;
+  }
 
-    input {
-      width: 100%;
-      padding: 14px 15px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      font-size: 15px;
-      margin-bottom: 16px;
-      outline: none;
-    }
+  .card::before {
+    content: "";
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,161,90,0.34), transparent 68%);
+    top: -90px;
+    right: -90px;
+  }
 
-    input:focus {
-      border-color: var(--green);
-    }
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(200,161,90,0.23);
+    border-radius: 28px;
+    pointer-events: none;
+  }
 
-    button {
-      border: 0;
-      border-radius: 14px;
-      padding: 14px 18px;
-      font-weight: 800;
-      cursor: pointer;
-      font-size: 15px;
-    }
+  h1, h2, h3 {
+    margin-top: 0;
+    color: var(--green);
+    letter-spacing: -0.04em;
+  }
 
-    .btn-main {
-      width: 100%;
-      background: var(--green);
-      color: var(--beige);
-    }
+  h2 {
+    font-size: 32px;
+    line-height: 1.15;
+  }
 
-    .btn-light {
-      background: #eef2ff;
-      color: #1f2937;
-    }
+  h3 {
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
 
-    .btn-danger {
-      background: #fee2e2;
-      color: #991b1b;
-    }
+  .logo {
+    font-size: 34px;
+    font-weight: 900;
+    text-align: center;
+    color: var(--green);
+    position: relative;
+    z-index: 1;
+  }
 
-    .error {
-      color: #b91c1c;
-      font-size: 14px;
-      margin-top: 12px;
-      text-align: center;
-      min-height: 20px;
-    }
+  .logo::before {
+    content: "✦";
+    display: block;
+    font-size: 26px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
 
+  .logo::after {
+    content: "Wedding Management";
+    display: block;
+    width: fit-content;
+    margin: 14px auto 0;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--gold-soft), #fff8e8);
+    color: #8a6425;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid rgba(200,161,90,0.26);
+  }
+
+  .sub {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: var(--muted);
+    margin: 22px 0 30px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  label {
+    display: block;
+    font-weight: 800;
+    font-size: 13px;
+    margin-bottom: 8px;
+    color: var(--green);
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: 15px 16px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    font-size: 15px;
+    margin-bottom: 16px;
+    outline: none;
+    background: rgba(255, 253, 248, 0.95);
+    color: var(--text);
+    font-family: 'Be Vietnam Pro', Arial, sans-serif;
+    transition: 0.18s ease;
+  }
+
+  textarea {
+    min-height: 140px;
+    resize: vertical;
+    line-height: 1.7;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 5px rgba(200, 161, 90, 0.16);
+    background: #ffffff;
+  }
+
+  button {
+    border: 0;
+    border-radius: 15px;
+    padding: 12px 16px;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Be Vietnam Pro', Arial, sans-serif;
+    transition: 0.18s ease;
+    white-space: nowrap;
+  }
+
+  button:hover {
+    transform: translateY(-1px);
+  }
+
+  button:active {
+    transform: translateY(0);
+  }
+
+  .btn-main {
+    width: 100%;
+    color: #fff7e6;
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-2) 55%, #405828 100%);
+    box-shadow: 0 15px 28px rgba(16, 29, 10, 0.25);
+  }
+
+  .btn-main:hover {
+    box-shadow: 0 18px 36px rgba(16, 29, 10, 0.32);
+  }
+
+  .btn-light {
+    background: rgba(255, 255, 255, 0.86);
+    color: var(--green);
+    border: 1px solid var(--border);
+  }
+
+  .btn-light:hover {
+    background: var(--gold-soft);
+    border-color: rgba(200,161,90,0.55);
+  }
+
+  .btn-danger {
+    background: var(--danger-soft);
+    color: var(--danger);
+    padding: 9px 14px;
+    font-size: 13px;
+    border-radius: 13px;
+    min-width: 64px;
+  }
+
+  .btn-danger:hover {
+    background: #fecaca;
+  }
+
+  .btn-copy {
+    background: var(--blue-soft);
+    color: var(--blue);
+    padding: 9px 14px;
+    font-size: 13px;
+    border-radius: 13px;
+  }
+.btn-mess {
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 9px 14px;
+  font-size: 13px;
+  border-radius: 13px;
+}
+
+.btn-mess:hover {
+  background: #c7d2fe;
+}
+  .btn-copy:hover {
+    background: #dbeafe;
+  }
+
+  .btn-logout {
+    background: rgba(255,255,255,0.12);
+    color: #fff7e6;
+    border: 1px solid rgba(255,255,255,0.22);
+  }
+
+  .btn-logout:hover {
+    background: rgba(255,255,255,0.18);
+  }
+
+  .error {
+    color: var(--danger);
+    font-size: 14px;
+    margin-top: 12px;
+    text-align: center;
+    min-height: 20px;
+  }
+
+  .success {
+    color: var(--success);
+    font-size: 14px;
+    margin-top: 12px;
+    font-weight: 700;
+  }
+
+  .app {
+    display: none;
+    min-height: 100vh;
+    padding: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .shell {
+    max-width: 1220px;
+    margin: 0 auto;
+  }
+
+  .topbar {
+    background:
+      radial-gradient(circle at 88% 18%, rgba(232, 214, 168, 0.28), transparent 30%),
+      linear-gradient(135deg, #101d0a 0%, #1d2e12 58%, #31491f 100%);
+    border-radius: 36px;
+    padding: 30px 32px;
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: flex-start;
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+    color: #fff7e6;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .topbar::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(232,214,168,0.18);
+    border-radius: 28px;
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    color: var(--gold-2);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+
+  .topbar h2 {
+    color: #fff7e6;
+    font-size: 34px;
+    margin: 0;
+  }
+
+  .top-desc {
+    max-width: 620px;
+    margin: 10px 0 12px;
+    color: rgba(255, 247, 230, 0.72);
+    line-height: 1.7;
+    font-size: 14px;
+  }
+
+  #userEmail {
+    color: rgba(255, 247, 230, 0.78) !important;
+    font-size: 13px;
+    margin-top: 8px !important;
+    padding: 7px 12px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px;
+    width: fit-content;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.35fr 0.9fr;
+    gap: 22px;
+    margin-bottom: 22px;
+  }
+
+  .panel,
+  .stats-panel {
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(234, 223, 205, 0.96);
+    border-radius: var(--radius-xl);
+    padding: 26px;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(14px);
+  }
+
+  .stats-panel {
+    display: grid;
+    gap: 14px;
+  }
+
+  .stat-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #fffdf8, #fbf3df);
+    border: 1px solid rgba(234, 223, 205, 0.9);
+  }
+
+  .champagne-card {
+    background: linear-gradient(135deg, #fff7df, #f3e2bb);
+  }
+
+  .stat-icon {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 10px 24px rgba(19,34,1,0.08);
+    font-size: 23px;
+  }
+
+  .stat-label {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .stat-number {
+    font-size: 36px;
+    line-height: 1;
+    color: var(--green);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+  }
+
+  .stat-text {
+    color: var(--green);
+    font-weight: 900;
+    font-size: 18px;
+  }
+
+  .row {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .row:last-child {
+    border-bottom: 0;
+  }
+
+  .label {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  .value {
+    font-weight: 900;
+    word-break: break-word;
+    color: var(--green);
+  }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    padding: 7px;
+    background: rgba(248, 242, 230, 0.86);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+  }
+
+  .tab {
+    background: transparent;
+    color: var(--muted);
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .tab.active {
+    background: linear-gradient(135deg, var(--green), var(--green-2));
+    color: #fff7e6;
+    box-shadow: 0 12px 24px rgba(16, 29, 10, 0.18);
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+    margin-bottom: 16px;
+  }
+
+  .actions .btn-light {
+    padding: 11px 17px;
+    font-size: 14px;
+    font-weight: 800;
+    border-radius: 14px;
+    min-height: 44px;
+    white-space: nowrap;
+  }
+
+  .placeholder {
+    padding: 24px;
+    background: #fffaf0;
+    border: 1px dashed rgba(200, 161, 90, 0.65);
+    border-radius: 20px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 16px;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: rgba(255,255,255,0.92);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
+  }
+
+  table {
+    width: 100%;
+    min-width: 980px;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  th,
+  td {
+    text-align: left;
+    border-bottom: 1px solid #f0eadf;
+    vertical-align: middle;
+  }
+
+  th {
+    background: linear-gradient(180deg, #fff8e8, #fbf2df);
+    color: #6f5526;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+    line-height: 1.25;
+    padding: 15px 14px;
+    white-space: nowrap;
+  }
+
+  td {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.45;
+    padding: 15px 14px;
+    color: #1f2937;
+  }
+
+  td strong {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--green);
+  }
+
+  tr:hover td {
+    background: #fffdf8;
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .small {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+    margin-top: 4px;
+  }
+
+  .link-cell {
+    max-width: 360px;
+    word-break: break-word;
+    line-height: 1.55;
+    white-space: normal;
+  }
+
+  th:nth-child(1), td:nth-child(1) { min-width: 135px; }
+  th:nth-child(2), td:nth-child(2) { min-width: 130px; }
+  th:nth-child(3), td:nth-child(3) { min-width: 95px; }
+  th:nth-child(4), td:nth-child(4) { min-width: 150px; }
+  th:nth-child(5), td:nth-child(5) { min-width: 180px; }
+  th:nth-child(6), td:nth-child(6) { min-width: 145px; }
+  th:nth-child(7), td:nth-child(7) {
+    min-width: 95px;
+    text-align: center;
+  }
+
+  #rsvpTab h3,
+  #guestTab h3 {
+    font-size: 26px;
+    margin-bottom: 18px;
+  }
+
+  @media (max-width: 920px) {
     .app {
-      display: none;
-      min-height: 100vh;
-      padding: 24px;
-    }
-
-    .shell {
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-
-    .topbar {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 18px 22px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      box-shadow: 0 10px 28px rgba(19, 34, 1, 0.08);
-      margin-bottom: 18px;
+      padding: 18px;
     }
 
     .grid {
-      display: grid;
       grid-template-columns: 1fr;
-      gap: 18px;
     }
 
-    .panel {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 10px 28px rgba(19, 34, 1, 0.08);
+    .topbar {
+      flex-direction: column;
+      border-radius: 28px;
     }
 
-    .row {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
+    .topbar h2 {
+      font-size: 27px;
     }
 
-    .row:last-child {
-      border-bottom: 0;
+    .panel,
+    .stats-panel {
+      padding: 21px;
+      border-radius: 26px;
     }
 
-    .label {
-      color: var(--muted);
+    table {
+      min-width: 860px;
+    }
+
+    th {
+      font-size: 11px;
+      padding: 13px 12px;
+    }
+
+    td {
       font-size: 13px;
-      margin-bottom: 4px;
+      padding: 13px 12px;
     }
 
-    .value {
-      font-weight: 700;
-      word-break: break-word;
+    td strong {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .page {
+      padding: 16px;
     }
 
-    .tabs {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
+    .card {
+      padding: 28px 22px;
+      border-radius: 28px;
+    }
+
+    .app {
+      padding: 12px;
+    }
+
+    .topbar {
+      padding: 22px;
+    }
+
+    .topbar h2 {
+      font-size: 24px;
+    }
+
+    .top-desc {
+      font-size: 13px;
     }
 
     .tab {
-      background: #f3f4f6;
-      color: #111827;
+      min-width: 100%;
     }
 
-    .tab.active {
-      background: var(--green);
-      color: var(--beige);
+    button {
+      width: 100%;
     }
 
-    .placeholder {
-      padding: 24px;
-      background: #fafafa;
-      border: 1px dashed #d1d5db;
-      border-radius: 16px;
-      color: var(--muted);
-      line-height: 1.6;
+    .actions {
+      gap: 8px;
     }
 
-    @media (min-width: 800px) {
-      .grid {
-        grid-template-columns: 1.2fr 1fr;
-      }
+    .actions button,
+    .actions .btn-light {
+      width: auto;
+      flex: 1 1 calc(50% - 8px);
+      min-width: 0;
+      font-size: 12px;
+      padding: 10px 10px;
+      min-height: 40px;
     }
-  </style>
+
+    .table-wrap {
+      border-radius: 18px;
+    }
+
+    table {
+      min-width: 780px;
+    }
+
+    th {
+      font-size: 10px;
+      letter-spacing: 0.025em;
+      padding: 12px 10px;
+    }
+
+    td {
+      font-size: 12px;
+      line-height: 1.45;
+      padding: 12px 10px;
+    }
+
+    td strong {
+      font-size: 12px;
+    }
+
+    .small {
+      font-size: 11px;
+    }
+
+    .btn-danger,
+    .btn-copy {
+      font-size: 12px;
+      padding: 8px 10px;
+      min-width: 58px;
+    }
+
+    #rsvpTab h3,
+    #guestTab h3 {
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+  }
+</style>
 </head>
 
 <body>
@@ -231,13 +774,15 @@
     <div class="shell">
 
       <div class="topbar">
-        <div>
-          <h2 style="margin:0">Dashboard Thiệp Cưới</h2>
-          <div id="userEmail" style="color:#6b7280;font-size:14px;margin-top:4px"></div>
-        </div>
+  <div>
+    <div class="eyebrow">EWEDDING MANAGEMENT</div>
+    <h2>Dashboard Thiệp Cưới</h2>
+    <p class="top-desc">Quản lý khách mời, link cá nhân hoá, RSVP và lời chúc trong một nơi.</p>
+    <div id="userEmail"></div>
+  </div>
 
-        <button class="btn-danger" onclick="logout()">Đăng xuất</button>
-      </div>
+  <button class="btn-logout" onclick="logout()">Đăng xuất</button>
+</div>
 
       <div class="grid">
         <div class="panel">
@@ -253,36 +798,99 @@
           </div>
         </div>
 
-        <div class="panel">
-          <h3>Thống kê nhanh</h3>
-          <div class="row">
-            <div class="label">Tổng khách đã tạo link</div>
-            <div id="guestCount" class="value">0</div>
-          </div>
-          <div class="row">
-            <div class="label">Tổng phản hồi RSVP</div>
-            <div id="rsvpCount" class="value">0</div>
-          </div>
-        </div>
-      </div>
+        <div class="stats-panel">
+  <div class="stat-card">
+    <div class="stat-icon">💌</div>
+    <div>
+      <div class="stat-label">Khách đã tạo link</div>
+      <div id="guestCount" class="stat-number">0</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon">🥂</div>
+    <div>
+      <div class="stat-label">Phản hồi RSVP</div>
+      <div id="rsvpCount" class="stat-number">0</div>
+    </div>
+  </div>
+
+  <div class="stat-card champagne-card">
+    <div class="stat-icon">✨</div>
+    <div>
+      <div class="stat-label">Trạng thái</div>
+      <div class="stat-text">Đang hoạt động</div>
+    </div>
+  </div>
+</div>
 
       <div class="panel" style="margin-top:18px">
         <div id="guestTab">
-          <h3>Tab 1: Cá nhân hoá tên khách mời</h3>
-          <div class="placeholder">
-            Bài tiếp theo mình sẽ đưa công cụ tạo link hiện tại vào đây.
-            Dâu rể chỉ cần nhập danh sách khách, hệ thống sẽ tự tạo link ngắn go.ewedding.site.
-          </div>
-        </div>
+  <h3>Tab 1: Cá nhân hoá tên khách mời</h3>
+
+  <div class="row">
+    <div class="label">Nhập danh sách khách mời</div>
+    <textarea id="guestNamesInput" placeholder="Mỗi khách một dòng, ví dụ:&#10;Ban Long Ơi&#10;Anh Minh&#10;Chị Hương"></textarea>
+
+    <div class="actions">
+      <button class="btn-main" onclick="createGuestLinks()">Tạo link cá nhân hoá</button>
+      <button class="btn-light" onclick="loadGuests()">Tải lại danh sách</button>
+    </div>
+
+    <div id="guestCreateMsg" class="success"></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tên khách</th>
+          <th>Link cá nhân hoá</th>
+          <th>Lượt mở</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="guestTableBody">
+        <tr>
+          <td colspan="4">Chưa có khách mời.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
         <div id="rsvpTab" style="display:none">
-          <h3>Tab 2: RSVP & lời chúc</h3>
-          <div class="placeholder">
-            Bài sau nữa mình sẽ nối form WebCake vào đây để xem danh sách khách tham dự,
-            lời chúc, nhà trai/gái và số người đi dự.
-          </div>
-        </div>
-      </div>
+  <h3>Tab 2: RSVP & lời chúc</h3>
+
+  <div class="actions">
+  <button class="btn-light" onclick="setRsvpFilter('all')">Tất cả</button>
+  <button class="btn-light" onclick="setRsvpFilter('yes')">Có tham dự</button>
+  <button class="btn-light" onclick="setRsvpFilter('no')">Không tham dự</button>
+  <button class="btn-light" onclick="loadRsvps()">Tải lại RSVP</button>
+  <button class="btn-light" onclick="exportRsvpsCsv()">Xuất CSV</button>
+</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Khách mời</th>
+<th>Tham dự</th>
+<th>Số người</th>
+<th>Nhà</th>
+<th>Lời chúc</th>
+<th>Thời gian</th>
+<th>Xoá</th>
+        </tr>
+      </thead>
+      <tbody id="rsvpTableBody">
+        <tr>
+          <td colspan="7">Chưa có phản hồi RSVP.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
     </div>
   </section>
@@ -295,6 +903,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
     let currentUser = null;
     let currentWedding = null;
+    let currentRsvpFilter = "all";
 
     init();
 
@@ -356,9 +965,11 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
     }
 
     async function loadDashboard() {
-      await loadWedding();
-      await loadStats();
-    }
+  await loadWedding();
+  await loadStats();
+  await loadGuests();
+  await loadRsvps();
+}
 
     async function loadWedding() {
       const box = document.getElementById("weddingBox");
@@ -425,7 +1036,450 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
       document.getElementById("guestCount").textContent = guestsCount || 0;
       document.getElementById("rsvpCount").textContent = rsvpsCount || 0;
     }
+async function createGuestLinks() {
+  const input = document.getElementById("guestNamesInput");
+  const msg = document.getElementById("guestCreateMsg");
 
+  msg.textContent = "";
+
+  if (!currentWedding) {
+    msg.textContent = "Chưa có thiệp cho tài khoản này.";
+    return;
+  }
+
+  const rawNames = input.value.trim();
+
+  if (!rawNames) {
+    msg.textContent = "Bác nhập danh sách khách mời trước nhé.";
+    return;
+  }
+
+  const names = rawNames
+    .split("\n")
+    .map(name => name.trim())
+    .filter(Boolean);
+
+  if (!names.length) {
+    msg.textContent = "Danh sách khách mời chưa hợp lệ.";
+    return;
+  }
+
+  msg.textContent = "Đang tạo link, bác chờ chút...";
+
+  let successCount = 0;
+
+  for (const name of names) {
+    const guestIdCode = encodeGuestName(name);
+    const guestCode = Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+
+    try {
+      const saveRes = await fetch("https://go.ewedding.site/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          g: guestCode,
+          id: guestIdCode,
+          name: name,
+          url: currentWedding.original_url
+        })
+      });
+
+      const saveData = await saveRes.json();
+      const personalUrl = saveData.url || `https://go.ewedding.site/${guestCode}`;
+
+      const { error } = await supabaseClient
+        .from("guests")
+        .insert({
+          wedding_id: currentWedding.id,
+          user_id: currentUser.id,
+          guest_name: name,
+          guest_code: guestCode,
+          guest_id_code: guestIdCode,
+          personal_url: personalUrl,
+          opened_count: 0
+        });
+
+      if (!error) {
+        successCount++;
+      } else {
+        console.log("Lỗi lưu Supabase:", error);
+      }
+
+    } catch (err) {
+      console.log("Lỗi tạo link:", err);
+    }
+  }
+
+  input.value = "";
+  msg.textContent = `Đã tạo thành công ${successCount}/${names.length} link khách mời.`;
+
+  await loadGuests();
+  await loadStats();
+}
+
+async function loadGuests() {
+  const tbody = document.getElementById("guestTableBody");
+
+  if (!tbody || !currentWedding) return;
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="4">Đang tải danh sách khách...</td>
+    </tr>
+  `;
+
+  const { data, error } = await supabaseClient
+    .from("guests")
+    .select("*")
+    .eq("wedding_id", currentWedding.id)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="4">Không tải được danh sách khách.</td>
+      </tr>
+    `;
+    console.log(error);
+    return;
+  }
+
+  if (!data || !data.length) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="4">Chưa có khách mời.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = data.map(row => `
+    <tr>
+      <td>
+        <strong>${escapeHtml(row.guest_name)}</strong>
+        <div class="small">${formatDate(row.created_at)}</div>
+      </td>
+
+      <td class="link-cell">
+        <a href="${escapeHtml(row.personal_url)}" target="_blank">
+          ${escapeHtml(row.personal_url)}
+        </a>
+      </td>
+
+      <td>${row.opened_count || 0}</td>
+
+     <td>
+  <button class="btn-copy" onclick="copyText('${escapeForJs(row.personal_url)}', this)">
+    Chép link
+  </button>
+
+  <button class="btn-mess" onclick="openMessenger('${escapeForJs(row.personal_url)}', '${escapeForJs(row.guest_name)}', this)" style="margin-left:6px">
+    Mess
+  </button>
+
+  <button class="btn-danger" onclick="deleteGuest('${row.id}')" style="margin-left:6px">
+    Xoá
+  </button>
+</td>
+    </tr>
+  `).join("");
+}
+
+function encodeGuestName(name) {
+  return btoa(unescape(encodeURIComponent(name)))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=/g, "");
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const oldText = btn.textContent;
+    btn.textContent = "Đã chép ✅";
+
+    setTimeout(() => {
+      btn.textContent = oldText;
+    }, 1200);
+  });
+}
+function openMessenger(link, guestName, btn) {
+  const message = `💌 Kính mời ${guestName || "bạn"} tham dự lễ cưới của chúng mình:\n${link}`;
+
+  navigator.clipboard.writeText(message).then(() => {
+    const oldText = btn.textContent;
+    btn.textContent = "Đã copy ✅";
+
+    setTimeout(() => {
+      btn.textContent = oldText;
+    }, 1500);
+  }).catch(() => {});
+
+  const messengerAppUrl = `fb-messenger://share?link=${encodeURIComponent(link)}`;
+  const messengerWebUrl = "https://www.messenger.com/";
+
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    window.location.href = messengerAppUrl;
+
+    setTimeout(() => {
+      window.location.href = messengerWebUrl;
+    }, 900);
+  } else {
+    window.open(messengerWebUrl, "_blank");
+  }
+}
+
+function formatDate(value) {
+  if (!value) return "";
+
+  try {
+    return new Date(value).toLocaleString("vi-VN");
+  } catch (e) {
+    return "";
+  }
+}
+
+function escapeForJs(str) {
+  return String(str || "")
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'")
+    .replace(/\n/g, "\\n");
+}
+async function exportRsvpsCsv() {
+  if (!currentWedding) {
+    alert("Chưa có thiệp hiện tại.");
+    return;
+  }
+
+  let query = supabaseClient
+    .from("rsvps")
+    .select("*")
+    .eq("wedding_id", currentWedding.id)
+    .eq("user_id", currentUser.id);
+
+  if (currentRsvpFilter === "yes") {
+    query = query.eq("attending", "yes");
+  }
+
+  if (currentRsvpFilter === "no") {
+    query = query.eq("attending", "no");
+  }
+
+  const { data, error } = await query.order("created_at", { ascending: false });
+
+  if (error) {
+    alert("Không xuất được CSV: " + error.message);
+    console.log(error);
+    return;
+  }
+
+  if (!data || !data.length) {
+    alert("Không có dữ liệu RSVP để xuất.");
+    return;
+  }
+
+  const headers = [
+    "Tên khách",
+    "Tham dự",
+    "Số người",
+    "Nhà",
+    "Lời chúc",
+    "Thời gian"
+  ];
+
+  const rows = data.map(row => [
+    row.guest_name || "",
+    formatAttending(row.attending),
+    row.people_count || 1,
+    row.guest_side || "",
+    row.message || "",
+    formatDate(row.created_at)
+  ]);
+
+  const csvContent = [
+    headers,
+    ...rows
+  ].map(row =>
+    row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")
+  ).join("\n");
+
+  const blob = new Blob(["\uFEFF" + csvContent], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  const fileName = `rsvp-${new Date().toISOString().slice(0, 10)}.csv`;
+
+  a.href = url;
+  a.download = fileName;
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+function setRsvpFilter(filter) {
+  currentRsvpFilter = filter;
+  loadRsvps();
+}
+async function loadRsvps() {
+  const tbody = document.getElementById("rsvpTableBody");
+
+  if (!tbody) {
+    console.log("Không tìm thấy rsvpTableBody");
+    return;
+  }
+
+  if (!currentWedding) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6">Chưa có thiệp hiện tại.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="6">Đang tải danh sách RSVP...</td>
+    </tr>
+  `;
+
+  let query = supabaseClient
+  .from("rsvps")
+  .select("*")
+  .eq("wedding_id", currentWedding.id)
+  .eq("user_id", currentUser.id);
+
+if (currentRsvpFilter === "yes") {
+  query = query.eq("attending", "yes");
+}
+
+if (currentRsvpFilter === "no") {
+  query = query.eq("attending", "no");
+}
+
+const { data, error } = await query.order("created_at", { ascending: false });
+
+  console.log("RSVP data:", data);
+  console.log("RSVP error:", error);
+
+  if (error) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6">Lỗi tải RSVP: ${escapeHtml(error.message)}</td>
+      </tr>
+    `;
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6">Chưa có phản hồi RSVP cho thiệp này.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = data.map(row => `
+    <tr>
+      <td>
+        <strong>${escapeHtml(row.guest_name || "Khách mời")}</strong>
+      </td>
+
+      <td>${formatAttending(row.attending)}</td>
+
+      <td>${row.people_count || 1}</td>
+
+      <td>${escapeHtml(row.guest_side || "")}</td>
+
+      <td class="link-cell">
+        ${escapeHtml(row.message || "")}
+      </td>
+
+      <td>
+        <span class="small">${formatDate(row.created_at)}</span>
+      </td>
+      <td>
+  <button class="btn-danger" onclick="deleteRsvp('${row.id}')">
+    Xoá
+  </button>
+</td>
+    </tr>
+  `).join("");
+}
+
+function formatAttending(value) {
+  const text = String(value || "").toLowerCase();
+
+  if (
+    text === "yes" ||
+    text.includes("có") ||
+    text.includes("chắc chắn") ||
+    text.includes("sẽ đến") ||
+    text.includes("tham dự")
+  ) {
+    return "Có tham dự";
+  }
+
+  if (
+    text === "no" ||
+    text.includes("không") ||
+    text.includes("khong") ||
+    text.includes("xin lỗi") ||
+    text.includes("bận")
+  ) {
+    return "Không tham dự";
+  }
+
+  return escapeHtml(value || "");
+}
+async function deleteRsvp(id) {
+  if (!id) return;
+
+  const ok = confirm("Bác chắc chắn muốn xoá phản hồi RSVP này chứ?");
+  if (!ok) return;
+
+  const { error } = await supabaseClient
+    .from("rsvps")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", currentUser.id);
+
+  if (error) {
+    alert("Không xoá được RSVP: " + error.message);
+    console.log(error);
+    return;
+  }
+
+  await loadRsvps();
+  await loadStats();
+} 
+async function deleteGuest(id) {
+  if (!id) return;
+
+  const ok = confirm("Bác chắc chắn muốn xoá khách mời/link này chứ?");
+  if (!ok) return;
+
+  const { error } = await supabaseClient
+    .from("guests")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", currentUser.id);
+
+  if (error) {
+    alert("Không xoá được khách mời: " + error.message);
+    console.log(error);
+    return;
+  }
+
+  await loadGuests();
+  await loadStats();
+}
     function showTab(tab) {
       document.getElementById("guestTab").style.display = tab === "guest" ? "block" : "none";
       document.getElementById("rsvpTab").style.display = tab === "rsvp" ? "block" : "none";

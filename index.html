@@ -748,6 +748,412 @@
       margin-bottom: 14px;
     }
   }
+  /* =====================================================
+   MOBILE APP STYLE FIX - EWedding Admin
+   Desktop giữ bảng, mobile chuyển sang card app cao cấp
+   ===================================================== */
+
+@media (max-width: 720px) {
+  body {
+    background:
+      radial-gradient(circle at 20% 0%, rgba(200, 161, 90, 0.18), transparent 32%),
+      linear-gradient(180deg, #fbf6ea 0%, #f4ead7 100%);
+  }
+
+  .app {
+    padding: 10px;
+  }
+
+  .shell {
+    max-width: 100%;
+  }
+
+  .topbar {
+    margin: 8px 0 14px;
+    padding: 22px;
+    border-radius: 26px;
+    width: 100%;
+  }
+
+  .topbar h2 {
+    font-size: 25px;
+    line-height: 1.2;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+  }
+
+  .top-desc {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  #userEmail {
+    font-size: 12px !important;
+    max-width: 100%;
+    word-break: break-all;
+  }
+
+  .btn-logout {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .grid {
+    display: block;
+  }
+
+  .panel,
+  .stats-panel {
+    border-radius: 24px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+
+  h3,
+  #guestTab h3,
+  #rsvpTab h3 {
+    font-size: 21px;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  .row {
+    padding: 13px 0;
+  }
+
+  .label {
+    font-size: 13px;
+  }
+
+  .value {
+    font-size: 18px;
+    line-height: 1.45;
+  }
+
+  .value a {
+    font-size: 16px;
+    word-break: break-all;
+  }
+
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 7px;
+    border-radius: 20px;
+  }
+
+  .tab {
+    width: 100%;
+    min-width: 0;
+    font-size: 15px;
+    padding: 13px 14px;
+    border-radius: 15px;
+  }
+
+  .stat-card {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    font-size: 20px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+
+  .stat-number {
+    font-size: 30px;
+  }
+
+  .stat-text {
+    font-size: 16px;
+  }
+
+  textarea {
+    min-height: 120px;
+    font-size: 14px;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin: 14px 0 16px;
+  }
+
+  .actions button,
+  .actions .btn-light,
+  .actions .btn-main {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 10px;
+    font-size: 13px;
+    border-radius: 14px;
+  }
+
+  #guestCreateMsg {
+    font-size: 16px;
+    line-height: 1.45;
+    margin: 12px 0;
+  }
+
+  /* Mobile không dùng bảng ngang nữa */
+  .table-wrap {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    margin-top: 14px;
+  }
+
+  table {
+    min-width: 0 !important;
+    width: 100%;
+    display: block;
+    border-collapse: separate;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  tr {
+    display: block;
+    background: rgba(255, 255, 255, 0.93);
+    border: 1px solid rgba(234, 223, 205, 0.95);
+    border-radius: 22px;
+    padding: 14px;
+    box-shadow: 0 10px 26px rgba(19, 34, 1, 0.07);
+  }
+
+  tr:hover td {
+    background: transparent;
+  }
+
+  td {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    width: 100%;
+    border-bottom: 1px solid #f1eadf;
+    padding: 10px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: right !important;
+  }
+
+  td:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  td::before {
+    content: "";
+    flex: 0 0 118px;
+    text-align: left;
+    color: #7b6a4b;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  td strong {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .small {
+    display: block;
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .link-cell,
+  td a {
+    max-width: 100%;
+    word-break: break-all;
+    line-height: 1.5;
+  }
+
+  /* Label cho bảng khách mời */
+  #guestTab td:nth-child(1)::before {
+    content: "Tên khách";
+  }
+
+  #guestTab td:nth-child(2)::before {
+    content: "Link";
+  }
+
+  #guestTab td:nth-child(3)::before {
+    content: "Lượt mở";
+  }
+
+  #guestTab td:nth-child(4)::before {
+    content: "Thao tác";
+  }
+
+  /* Label cho bảng RSVP */
+  #rsvpTab td:nth-child(1)::before {
+    content: "Khách mời";
+  }
+
+  #rsvpTab td:nth-child(2)::before {
+    content: "Tham dự";
+  }
+
+  #rsvpTab td:nth-child(3)::before {
+    content: "Số người";
+  }
+
+  #rsvpTab td:nth-child(4)::before {
+    content: "Nhà";
+  }
+
+  #rsvpTab td:nth-child(5)::before {
+    content: "Lời chúc";
+  }
+
+  #rsvpTab td:nth-child(6)::before {
+    content: "Thời gian";
+  }
+
+  #rsvpTab td:nth-child(7)::before {
+    content: "Xoá";
+  }
+
+  /* Ô thao tác khách mời */
+  #guestTab td:nth-child(4) {
+    display: block;
+    text-align: left !important;
+  }
+
+  #guestTab td:nth-child(4)::before {
+    display: block;
+    margin-bottom: 10px;
+    flex: none;
+  }
+
+  #guestTab td:nth-child(4) button {
+    width: 100%;
+    margin: 0 0 8px 0 !important;
+    padding: 12px 14px;
+    font-size: 14px;
+    border-radius: 15px;
+  }
+
+  #guestTab td:nth-child(4) button:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  .btn-copy {
+    background: linear-gradient(135deg, #e8f1ff, #dceafe);
+    color: #1746a2;
+    font-weight: 900;
+  }
+
+  .btn-mess {
+    background: linear-gradient(135deg, #eef2ff, #dbe3ff);
+    color: #3530a3;
+    font-weight: 900;
+  }
+
+  .btn-danger {
+    background: linear-gradient(135deg, #ffe4e6, #ffd1d6);
+    color: #a41414;
+    font-weight: 900;
+  }
+
+  /* RSVP nút xoá */
+  #rsvpTab td:last-child {
+    display: block;
+    text-align: left !important;
+  }
+
+  #rsvpTab td:last-child::before {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  #rsvpTab td:last-child button {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border-radius: 15px;
+  }
+
+  /* Dòng báo không có dữ liệu */
+  td[colspan] {
+    display: block;
+    text-align: center !important;
+    color: #6f7568;
+    font-weight: 700;
+    border-bottom: 0;
+  }
+
+  td[colspan]::before {
+    display: none;
+  }
+}
+
+/* Mobile nhỏ hơn nữa */
+@media (max-width: 420px) {
+  .app {
+    padding: 8px;
+  }
+
+  .topbar,
+  .panel,
+  .stats-panel {
+    border-radius: 22px;
+  }
+
+  .panel,
+  .stats-panel {
+    padding: 18px;
+  }
+
+  .topbar {
+    padding: 20px;
+  }
+
+  .topbar h2 {
+    font-size: 23px;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  td {
+    display: block;
+    text-align: left !important;
+  }
+
+  td::before {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .small {
+    text-align: left;
+  }
+}
 </style>
 </head>
 

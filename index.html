@@ -7,7 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap');
 
     :root {
       --green: #101d0a;
@@ -791,6 +791,231 @@
     font-size: 13.5px !important;
   }
 }
+  
+
+/* ===== EWedding Luxury Refresh - final override ===== */
+:root {
+  --green: #13210d;
+  --green-2: #253a18;
+  --cream: #f6efe3;
+  --gold: #c6a25d;
+  --gold-2: #e7d2a0;
+  --gold-soft: #fbf4e4;
+  --text: #182113;
+  --muted: #6e735f;
+  --border: rgba(214, 194, 151, 0.55);
+  --shadow: 0 30px 80px rgba(31, 35, 20, 0.14);
+  --shadow-soft: 0 16px 42px rgba(31, 35, 20, 0.09);
+}
+
+html, body {
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  background:
+    radial-gradient(circle at 16% 7%, rgba(198,162,93,0.28), transparent 26%),
+    radial-gradient(circle at 84% 12%, rgba(19,33,13,0.16), transparent 24%),
+    linear-gradient(135deg, #fffaf1 0%, #f6efe3 48%, #eadfc9 100%) !important;
+}
+
+body::before {
+  opacity: .28 !important;
+  background-size: 44px 44px !important;
+}
+
+.shell { max-width: 1240px !important; }
+.app { padding: 32px 24px 56px !important; }
+
+h1, h2, h3, .logo {
+  font-family: 'Playfair Display', 'Be Vietnam Pro', serif !important;
+  letter-spacing: -0.025em !important;
+}
+
+.dashboard-hero,
+.topbar.dashboard-hero {
+  min-height: auto !important;
+  padding: 30px 34px !important;
+  margin-bottom: 24px !important;
+  border-radius: 34px !important;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(231,210,160,0.30), transparent 34%),
+    linear-gradient(135deg, #111f0b 0%, #203417 56%, #506331 100%) !important;
+  color: #fff8e8 !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  box-shadow: 0 28px 70px rgba(17,31,11,0.24) !important;
+}
+
+.dashboard-hero::after { border-color: rgba(231,210,160,0.24) !important; }
+.dashboard-hero .eyebrow {
+  color: #efdca8 !important;
+  font-size: 11px !important;
+  letter-spacing: .18em !important;
+  margin-bottom: 10px !important;
+}
+.dashboard-hero h2 {
+  color: #fff8e8 !important;
+  font-size: 38px !important;
+  line-height: 1.05 !important;
+  margin: 0 !important;
+  font-weight: 800 !important;
+}
+.dashboard-hero .top-desc {
+  max-width: 760px !important;
+  color: rgba(255,248,232,0.78) !important;
+  font-size: 14.5px !important;
+  line-height: 1.75 !important;
+  margin: 12px 0 0 !important;
+}
+.dashboard-hero .btn-logout {
+  background: rgba(255,255,255,0.14) !important;
+  color: #fff8e8 !important;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+  min-height: 46px !important;
+  padding: 12px 18px !important;
+}
+
+.grid {
+  grid-template-columns: minmax(0, .95fr) minmax(300px, .65fr) !important;
+  align-items: stretch !important;
+  gap: 24px !important;
+}
+.panel, .stats-panel {
+  border-radius: 34px !important;
+  padding: 28px !important;
+  background: rgba(255,255,255,0.90) !important;
+  border: 1px solid rgba(214,194,151,0.58) !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+.panel h3, .stats-panel h3 {
+  color: var(--green) !important;
+  font-size: 28px !important;
+  margin-bottom: 18px !important;
+}
+
+.row {
+  padding: 16px 0 !important;
+  border-bottom: 1px solid rgba(214,194,151,0.42) !important;
+}
+.label {
+  color: #83785e !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: .06em !important;
+}
+.value {
+  color: var(--green) !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+}
+
+.tabs {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 10px !important;
+  padding: 9px !important;
+  background: linear-gradient(180deg, #fbf4e4, #f4ead4) !important;
+  border-radius: 24px !important;
+  border: 1px solid rgba(214,194,151,0.65) !important;
+}
+.tab {
+  min-width: 0 !important;
+  border-radius: 17px !important;
+  padding: 13px 14px !important;
+  font-size: 14px !important;
+  text-align: center !important;
+}
+.tab.active {
+  background: linear-gradient(135deg, #12210d, #2a421b) !important;
+  color: #fff8e8 !important;
+  box-shadow: 0 14px 30px rgba(18,33,13,0.22) !important;
+}
+
+.stat-card {
+  border-radius: 26px !important;
+  padding: 20px !important;
+  background: linear-gradient(135deg, #fffdf8, #fbf2dc) !important;
+  border: 1px solid rgba(214,194,151,0.55) !important;
+}
+.stat-icon { background: #fff !important; color: var(--green) !important; }
+.stat-number { font-family: 'Playfair Display', serif !important; font-size: 40px !important; }
+
+input, textarea, select {
+  border-radius: 18px !important;
+  border: 1px solid rgba(214,194,151,0.64) !important;
+  background: rgba(255,253,248,0.96) !important;
+}
+textarea {
+  min-height: 150px !important;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: #c6a25d !important;
+  box-shadow: 0 0 0 5px rgba(198,162,93,0.18) !important;
+}
+
+.actions {
+  align-items: center !important;
+  gap: 12px !important;
+}
+.btn-main {
+  background: linear-gradient(135deg, #14220d 0%, #2d421d 62%, #66763c 100%) !important;
+  color: #fff8e8 !important;
+  box-shadow: 0 16px 34px rgba(20,34,13,0.25) !important;
+  min-height: 48px !important;
+}
+.btn-light {
+  background: #fffaf0 !important;
+  color: var(--green) !important;
+  border: 1px solid rgba(214,194,151,0.72) !important;
+  box-shadow: 0 8px 18px rgba(31,35,20,0.05) !important;
+}
+.btn-copy, .btn-mess, .btn-danger {
+  border: 1px solid rgba(255,255,255,0.65) !important;
+  min-height: 38px !important;
+}
+
+.table-wrap {
+  border-radius: 26px !important;
+  border: 1px solid rgba(214,194,151,0.60) !important;
+  background: rgba(255,255,255,0.96) !important;
+  box-shadow: 0 12px 32px rgba(31,35,20,0.06) !important;
+}
+th {
+  background: linear-gradient(180deg, #fff8e8, #f6e9cd) !important;
+  color: #6b501f !important;
+  padding: 16px 15px !important;
+}
+td { padding: 16px 15px !important; }
+tr:hover td { background: #fffaf0 !important; }
+.link-cell a { color: #1a3d10 !important; }
+
+.guide-box.luxe-guide {
+  margin-bottom: 18px !important;
+  padding: 18px 18px !important;
+  border-radius: 22px !important;
+  background: linear-gradient(135deg, #fffaf0, #fffdf8) !important;
+  border: 1px solid rgba(214,194,151,0.62) !important;
+}
+.guide-box.luxe-guide strong { color: var(--green) !important; font-size: 15px !important; }
+.guide-box.luxe-guide p { margin-bottom: 0 !important; color: var(--muted) !important; }
+
+.success, .error {
+  padding: 0 !important;
+  line-height: 1.55 !important;
+}
+
+@media (max-width: 920px) {
+  .grid { grid-template-columns: 1fr !important; }
+  .dashboard-hero h2 { font-size: 31px !important; }
+}
+
+@media screen and (max-width: 760px) {
+  .app { padding: 10px !important; }
+  .dashboard-hero, .panel, .stats-panel { border-radius: 26px !important; padding: 19px !important; }
+  .dashboard-hero h2 { font-size: 27px !important; }
+  .dashboard-hero .top-desc { font-size: 13.5px !important; }
+  .panel h3, #guestTab h3, #rsvpTab h3 { font-size: 23px !important; }
+  .actions { grid-template-columns: 1fr 1fr !important; }
+  #guestTab td:nth-child(4) { grid-template-columns: 1fr 1fr 52px !important; }
+}
+
   </style>
 </head>
 
@@ -814,17 +1039,17 @@
   <section id="appPage" class="app">
     <div class="shell">
       <div class="topbar dashboard-hero">
-  <div>
-    <div class="eyebrow">THIỆP CƯỚI ONLINE EWEDDING</div>
-    <h2>Quản lý thiệp cưới</h2>
-    <p class="top-desc">
-      Tạo link mời riêng cho từng khách, theo dõi lượt mở thiệp và xem phản hồi RSVP.
-    </p>
-    <div id="userEmail"></div>
-  </div>
+        <div>
+          <div class="eyebrow">EWEDDING • WEDDING MANAGEMENT</div>
+          <h2>Quản lý thiệp cưới</h2>
+          <p class="top-desc">
+            Không gian quản lý riêng cho dâu rể: tạo link mời cá nhân hoá, theo dõi lượt mở thiệp, RSVP và lời chúc.
+          </p>
+          <div id="userEmail"></div>
+        </div>
 
-  <button class="btn-logout" onclick="logout()">Đăng xuất</button>
-</div>
+        <button class="btn-logout" onclick="logout()">Đăng xuất</button>
+      </div>
 
       <div class="grid">
         <div class="panel">
@@ -832,12 +1057,11 @@
           <div id="weddingBox">Đang tải dữ liệu...</div>
 
           <div class="tabs">
-  <button class="tab active" onclick="showTab('guest')">1. Điền tên khách mời</button>
-  <button class="tab" onclick="showTab('rsvp')">2. RSVP & lời chúc</button>
-  <button id="adminTabButton" class="tab" onclick="showTab('admin')" style="display:none">
-  3. Quản trị
-</button>
-</div>
+            <button class="tab active" onclick="showTab('guest')">1. Khách mời</button>
+            <button class="tab" onclick="showTab('rsvp')">2. RSVP & lời chúc</button>
+            <button id="adminTabButton" class="tab" onclick="showTab('admin')" style="display:none">3. Quản trị</button>
+          </div>
+        </div>
 
         <div class="stats-panel">
           <div class="stat-card">
@@ -868,7 +1092,12 @@
 
       <div class="panel">
         <div id="guestTab">
-          <h3>Tab 1: Cá nhân hoá tên khách mời</h3>
+          <h3>Cá nhân hoá khách mời</h3>
+
+          <div class="guide-box luxe-guide">
+            <strong>Nhập tên khách mời, mỗi dòng một người</strong>
+            <p>Hệ thống sẽ tạo link thiệp riêng cho từng khách, tự cá nhân hoá tên và lưu vào danh sách bên dưới.</p>
+          </div>
 
           <div class="row">
             <div class="label">Nhập danh sách khách mời</div>
@@ -877,7 +1106,7 @@
   placeholder="Nhập tên khách mời, mỗi dòng một người&#10;Ví dụ:&#10;Nguyễn Văn An&#10;Gia đình chú Minh&#10;Bạn Lan Anh"
 ></textarea>
             <div class="actions">
-              <button class="btn-main" onclick="createGuestLinks()">Tạo link cá nhân hoá</button>
+              <button class="btn-main" onclick="createGuestLinks()">Tạo link mời khách</button>
               <button class="btn-light" onclick="loadGuests()">Tải lại danh sách</button>
             </div>
 
@@ -904,7 +1133,7 @@
         </div>
 
         <div id="rsvpTab" style="display:none">
-          <h3>Tab 2: RSVP & lời chúc</h3>
+          <h3>RSVP & lời chúc</h3>
 
           <div class="actions">
             <button class="btn-light" onclick="setRsvpFilter('all')">Tất cả</button>
@@ -936,7 +1165,7 @@
           </div>
         </div>
       <div id="adminTab" style="display:none">
-  <h3>Tab 3: Tạo tài khoản dâu rể</h3>
+  <h3>Quản trị khách hàng</h3>
 
   <div class="row">
     <div class="label">Mã quản trị</div>
@@ -1134,7 +1363,7 @@ async function loadProfileRole() {
         </div>
 
         <div class="row">
-          <div class="label">Dâu Rể</div>
+          <div class="label">Cô dâu & Chú rể</div>
           <div class="value">${escapeHtml(data.groom_name || "")} & ${escapeHtml(data.bride_name || "")}</div>
         </div>
 
@@ -1172,7 +1401,7 @@ async function loadProfileRole() {
     }
 
     async function createGuestLinks() {
-      const input = document.getElementById("guestNamesInput");
+      const input = document.getElementById("guestNames");
       const msg = document.getElementById("guestCreateMsg");
 
       msg.textContent = "";

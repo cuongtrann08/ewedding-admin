@@ -1188,6 +1188,76 @@ tr:hover td { background: #fffaf0 !important; }
     font-size: 10px !important;
   }
 }
+.wedding-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn-compact {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border-radius: 15px;
+  font-size: 13px;
+}
+
+@media screen and (max-width: 520px) {
+  .wedding-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-compact {
+    min-height: 44px;
+  }
+}
+.login-result-box {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top right, rgba(200, 161, 90, 0.15), transparent 36%),
+    linear-gradient(135deg, #fffdf8, #fbf3df);
+  border: 1px solid rgba(234, 223, 205, 0.96);
+  color: var(--green);
+}
+
+.login-result-title {
+  font-size: 15px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.login-result-line {
+  display: grid;
+  grid-template-columns: 115px 1fr;
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid rgba(234, 223, 205, 0.85);
+  font-size: 13px;
+}
+
+.login-result-line span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.login-result-line b {
+  color: var(--green);
+  word-break: break-word;
+}
+
+.btn-copy-login {
+  margin-top: 14px;
+}
+
+@media screen and (max-width: 520px) {
+  .login-result-line {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
   </style>
 </head>
 
@@ -1581,9 +1651,19 @@ async function loadProfileRole() {
         </div>
 
         <div class="row">
-          <div class="label">Trạng thái</div>
-          <div class="value">${data.is_active ? "Đang hoạt động" : "Tạm tắt"}</div>
-        </div>
+  <div class="label">Trạng thái</div>
+  <div class="value">${data.is_active ? "Đang hoạt động" : "Tạm tắt"}</div>
+</div>
+
+<div class="wedding-actions">
+  <button class="btn-main btn-compact" onclick="previewWedding('${escapeForJs(data.original_url)}')">
+    Xem thiệp
+  </button>
+
+  <button class="btn-light btn-compact" onclick="copyText('${escapeForJs(data.original_url)}', this)">
+    Copy link thiệp
+  </button>
+</div>
       `;
     }
 
@@ -2074,13 +2154,39 @@ function normalizeAttendingValue(value) {
       return;
     }
 
-    msg.style.color = "#047857";
-    msg.innerHTML = `
-      Đã tạo thành công tài khoản dâu rể ✅<br>
-      Email: <b>${escapeHtml(email)}</b><br>
-      Mật khẩu: <b>${escapeHtml(password)}</b><br>
-      Link quản lý: <b>https://quanly.ewedding.site</b>
-    `;
+   msg.style.color = "#047857";
+msg.innerHTML = `
+  <div class="login-result-box">
+    <div class="login-result-title">Đã tạo thành công tài khoản dâu rể ✅</div>
+
+    <div class="login-result-line">
+      <span>Link quản lý</span>
+      <b>https://quanly.ewedding.site</b>
+    </div>
+
+    <div class="login-result-line">
+      <span>Email</span>
+      <b>${escapeHtml(email)}</b>
+    </div>
+
+    <div class="login-result-line">
+      <span>Mật khẩu</span>
+      <b>${escapeHtml(password)}</b>
+    </div>
+
+    <div class="login-result-line">
+      <span>Link thiệp</span>
+      <b>${escapeHtml(originalUrl)}</b>
+    </div>
+
+    <button
+      class="btn-main btn-copy-login"
+      onclick="copyNewClientLogin('${escapeForJs(email)}', '${escapeForJs(password)}', '${escapeForJs(originalUrl)}', this)"
+    >
+      Copy thông tin gửi dâu rể
+    </button>
+  </div>
+`;
 
   } catch (err) {
     msg.style.color = "#a41414";
@@ -2398,6 +2504,34 @@ function copyClientLogin(email, btn) {
     setTimeout(() => {
       btn.textContent = oldText;
     }, 1200);
+  });
+}
+function previewWedding(url) {
+  if (!url) {
+    alert("Chưa có link thiệp.");
+    return;
+  }
+
+  window.open(url, "_blank");
+}
+function copyNewClientLogin(email, password, originalUrl, btn) {
+  const text =
+`Thông tin quản lý thiệp cưới online:
+
+Link quản lý: https://quanly.ewedding.site
+Email đăng nhập: ${email}
+Mật khẩu: ${password}
+
+Link xem thiệp: ${originalUrl}
+
+Sau khi đăng nhập, bạn có thể tạo link mời riêng cho từng khách, xem RSVP và xuất danh sách phản hồi.`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const oldText = btn.textContent;
+    btn.textContent = "Đã copy thông tin ✅";
+    setTimeout(() => {
+      btn.textContent = oldText;
+    }, 1400);
   });
 }
   </script>

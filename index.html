@@ -627,6 +627,101 @@
     padding: 9px;
   }
 }
+.brand-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 244, 214, 0.95), transparent 34%),
+    linear-gradient(135deg, #fffaf0 0%, #ffffff 58%, #f7efe2 100%);
+  border: 1px solid rgba(234, 223, 205, 0.95);
+  box-shadow: 0 18px 45px rgba(86, 62, 35, 0.08);
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: #fff3d6;
+  color: #8a5a12;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+.brand-header h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.15;
+  color: #332719;
+}
+
+.brand-header p {
+  max-width: 680px;
+  margin: 9px 0 0;
+  color: #7a6a58;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.guide-box {
+  padding: 16px 17px;
+  margin: 0 0 14px;
+  border-radius: 18px;
+  background: #fffaf0;
+  border: 1px solid #eadfcd;
+  color: #4b3b2a;
+}
+
+.guide-box strong {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.guide-box p {
+  margin: 0 0 10px;
+  color: #7a6a58;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.guide-example {
+  padding: 11px 12px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px dashed #decda9;
+  color: #6f5b3e;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+@media screen and (max-width: 760px) {
+  .brand-header {
+    padding: 18px 16px;
+    border-radius: 22px;
+  }
+
+  .brand-header h1 {
+    font-size: 24px;
+  }
+
+  .brand-header p {
+    font-size: 13.5px;
+  }
+
+  .guide-box {
+    padding: 14px;
+    border-radius: 16px;
+  }
+}
   </style>
 </head>
 
@@ -649,15 +744,19 @@
 
   <section id="appPage" class="app">
     <div class="shell">
-      <div class="topbar">
-        <div>
-          <div class="eyebrow">THIỆP CƯỚI ONLINE EWEDDING</div>
-          <h2>Quản Lý Thiệp Cưới</h2>
-          <p class="top-desc">Quản lý khách mời, link cá nhân hoá, RSVP và lời chúc.</p>
-          <div id="userEmail"></div>
-        </div>
-        <button class="btn-logout" onclick="logout()">Đăng xuất</button>
-      </div>
+      <div class="topbar brand-header">
+  <div>
+    <div class="brand-badge">💌 Thiệp cưới online</div>
+    <div class="eyebrow">EWEDDING - QUẢN LÝ THIỆP CƯỚI</div>
+    <h2>Quản lý thiệp cưới của bạn</h2>
+    <p class="top-desc">
+      Tạo link mời riêng cho từng khách, theo dõi lượt mở thiệp và xem phản hồi RSVP trong một nơi.
+    </p>
+    <div id="userEmail"></div>
+  </div>
+
+  <button class="btn-logout" onclick="logout()">Đăng xuất</button>
+</div>
 
       <div class="grid">
         <div class="panel">
@@ -705,8 +804,10 @@
 
           <div class="row">
             <div class="label">Nhập danh sách khách mời</div>
-            <textarea id="guestNamesInput" placeholder="Mỗi khách một dòng, ví dụ:&#10;Ban Long&#10;Anh Minh&#10;Chị Hương"></textarea>
-
+            <textarea
+  id="guestNames"
+  placeholder="Nhập tên khách mời, mỗi dòng một người&#10;Ví dụ:&#10;Nguyễn Văn An&#10;Gia đình chú Minh&#10;Bạn Lan Anh"
+></textarea>
             <div class="actions">
               <button class="btn-main" onclick="createGuestLinks()">Tạo link cá nhân hoá</button>
               <button class="btn-light" onclick="loadGuests()">Tải lại danh sách</button>

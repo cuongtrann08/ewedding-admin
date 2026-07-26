@@ -573,7 +573,9 @@
           <div class="tabs">
   <button class="tab active" onclick="showTab('guest')">1. Điền tên khách mời</button>
   <button class="tab" onclick="showTab('rsvp')">2. RSVP & lời chúc</button>
-  <button class="tab" onclick="showTab('admin')">3. Quản trị</button>
+  <button id="adminTabButton" class="tab" onclick="showTab('admin')" style="display:none">
+  3. Quản trị
+</button>
 </div>
 
         <div class="stats-panel">
@@ -717,9 +719,11 @@
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    let currentUser = null;
-    let currentWedding = null;
-    let currentRsvpFilter = "all";
+    llet currentUser = null;
+let currentWedding = null;
+let currentRsvpFilter = "all";
+let currentProfile = null;
+let isAdminUser = false;
 
     init();
 
@@ -761,7 +765,28 @@
       showApp();
       await loadDashboard();
     }
+async function loadProfileRole() {
+  isAdminUser = false;
+  currentProfile = null;
 
+  if (!currentUser) return;
+
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .select("role")
+    .eq("id", currentUser.id)
+    .maybeSingle();
+
+  if (!error && data) {
+    currentProfile = data;
+    isAdminUser = data.role === "admin";
+  }
+
+  const adminBtn = document.getElementById("adminTabButton");
+  if (adminBtn) {
+    adminBtn.style.display = isAdminUser ? "block" : "none";
+  }
+}
     async function logout() {
       await supabaseClient.auth.signOut();
       currentUser = null;
@@ -781,11 +806,12 @@
     }
 
     async function loadDashboard() {
-      await loadWedding();
-      await loadStats();
-      await loadGuests();
-      await loadRsvps();
-    }
+  await loadProfileRole();
+  await loadWedding();
+  await loadStats();
+  await loadGuests();
+  await loadRsvps();
+}
 
     async function loadWedding() {
       const box = document.getElementById("weddingBox");
@@ -1190,19 +1216,23 @@
     }
 
     function showTab(tab) {
+  if (tab === "admin" && !isAdminUser) {
+    alert("Chỉ tài khoản quản trị mới dùng được mục này.");
+    tab = "guest";
+  }
+
   document.getElementById("guestTab").style.display = tab === "guest" ? "block" : "none";
   document.getElementById("rsvpTab").style.display = tab === "rsvp" ? "block" : "none";
 
   const adminTab = document.getElementById("adminTab");
   if (adminTab) {
-    adminTab.style.display = tab === "admin" ? "block" : "none";
+    adminTab.style.display = tab === "admin" && isAdminUser ? "block" : "none";
   }
 
   document.querySelectorAll(".tab").forEach(btn => btn.classList.remove("active"));
 
-  if (tab === "guest") document.querySelectorAll(".tab")[0].classList.add("active");
-  if (tab === "rsvp") document.querySelectorAll(".tab")[1].classList.add("active");
-  if (tab === "admin") document.querySelectorAll(".tab")[2].classList.add("active");
+  const targetBtn = document.querySelector(`.tab[onclick="showTab('${tab}')"]`);
+  if (targetBtn) targetBtn.classList.add("active");
 }
 
     function escapeHtml(str) {

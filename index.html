@@ -1258,6 +1258,73 @@ tr:hover td { background: #fffaf0 !important; }
     gap: 4px;
   }
 }
+.guest-filter-box {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin: 18px 0 12px;
+  padding: 14px;
+  border-radius: 22px;
+  background: rgba(255, 253, 248, 0.92);
+  border: 1px solid rgba(234, 223, 205, 0.96);
+  box-shadow: 0 10px 26px rgba(19, 34, 1, 0.06);
+}
+
+.guest-search-wrap input {
+  margin-bottom: 0;
+  min-height: 46px;
+  border-radius: 15px;
+  background: #ffffff;
+}
+
+.guest-filter-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.guest-filter-actions button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+}
+
+.guest-filter-actions .active-filter {
+  background: linear-gradient(135deg, var(--green), var(--green-2)) !important;
+  color: #fff7e6 !important;
+  border-color: transparent !important;
+  box-shadow: 0 10px 22px rgba(16, 29, 10, 0.16);
+}
+
+@media screen and (max-width: 760px) {
+  .guest-filter-box {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .guest-filter-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+
+  .guest-filter-actions button {
+    width: 100%;
+    min-height: 40px;
+    padding: 9px 6px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .guest-search-wrap input {
+    min-height: 44px;
+    font-size: 13.5px;
+  }
+}
   </style>
 </head>
 
@@ -1386,7 +1453,30 @@ tr:hover td { background: #fffaf0 !important; }
 
             <div id="guestCreateMsg" class="success"></div>
           </div>
+<div class="guest-filter-box">
+  <div class="guest-search-wrap">
+    <input
+      id="guestSearchInput"
+      type="text"
+      placeholder="Tìm tên khách mời..."
+      oninput="applyGuestSearch()"
+    />
+  </div>
 
+  <div class="guest-filter-actions">
+    <button id="guestFilterAll" class="btn-light active-filter" onclick="setGuestOpenFilter('all')">
+      Tất cả
+    </button>
+
+    <button id="guestFilterOpened" class="btn-light" onclick="setGuestOpenFilter('opened')">
+      Đã mở
+    </button>
+
+    <button id="guestFilterUnopened" class="btn-light" onclick="setGuestOpenFilter('unopened')">
+      Chưa mở
+    </button>
+  </div>
+</div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -1519,6 +1609,9 @@ let currentWedding = null;
 let currentRsvpFilter = "all";
 let currentProfile = null;
 let isAdminUser = false;
+let allGuestsData = [];
+let guestSearchKeyword = "";
+let guestOpenFilter = "all";
 
     init();
 
@@ -1835,26 +1928,9 @@ function normalizeAttendingValue(value) {
         return;
       }
 
-      tbody.innerHTML = data.map(row => `
-        <tr>
-          <td>
-            <strong>${escapeHtml(row.guest_name)}</strong>
-            <div class="small">${formatDate(row.created_at)}</div>
-          </td>
-
-          <td class="link-cell">
-            <a href="${escapeHtml(row.personal_url)}" target="_blank">${escapeHtml(row.personal_url)}</a>
-          </td>
-
-          <td>${row.opened_count || 0}</td>
-
-          <td>
-            <button class="btn-copy" onclick="copyText('${escapeForJs(row.personal_url)}', this)">Chép link</button>
-            <button class="btn-mess" onclick="openMessenger('${escapeForJs(row.personal_url)}', '${escapeForJs(row.guest_name)}', this)" style="margin-left:6px">Mess</button>
-            <button class="btn-danger" onclick="deleteGuest('${row.id}')" style="margin-left:6px">Xoá</button>
-          </td>
-        </tr>
-      `).join("");
+      
+        allGuestsData = data || [];
+renderGuestsTable();
     }
 
     function encodeGuestName(name) {
@@ -2533,6 +2609,78 @@ Sau khi đăng nhập, bạn có thể tạo link mời riêng cho từng khách
       btn.textContent = oldText;
     }, 1400);
   });
+}
+function renderGuestsTable() {
+  const tbody = document.getElementById("guestTableBody");
+  if (!tbody) return;
+
+  let list = [...(allGuestsData || [])];
+
+  if (guestSearchKeyword) {
+    const keyword = guestSearchKeyword.toLowerCase();
+    list = list.filter(row =>
+      String(row.guest_name || "").toLowerCase().includes(keyword)
+    );
+  }
+
+  if (guestOpenFilter === "opened") {
+    list = list.filter(row => Number(row.opened_count || 0) > 0);
+  }
+
+  if (guestOpenFilter === "unopened") {
+    list = list.filter(row => Number(row.opened_count || 0) <= 0);
+  }
+
+  if (!list.length) {
+    tbody.innerHTML = `<tr><td colspan="4">Không có khách mời phù hợp với bộ lọc.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map(row => `
+    <tr>
+      <td>
+        <strong>${escapeHtml(row.guest_name)}</strong>
+        <div class="small">${formatDate(row.created_at)}</div>
+      </td>
+
+      <td class="link-cell">
+        <a href="${escapeHtml(row.personal_url)}" target="_blank">${escapeHtml(row.personal_url)}</a>
+      </td>
+
+      <td>${row.opened_count || 0}</td>
+
+      <td>
+        <button class="btn-copy" onclick="copyText('${escapeForJs(row.personal_url)}', this)">Chép link</button>
+        <button class="btn-mess" onclick="openMessenger('${escapeForJs(row.personal_url)}', '${escapeForJs(row.guest_name)}', this)" style="margin-left:6px">Mess</button>
+        <button class="btn-danger" onclick="deleteGuest('${row.id}')" style="margin-left:6px">Xoá</button>
+      </td>
+    </tr>
+  `).join("");
+}
+
+function applyGuestSearch() {
+  const input = document.getElementById("guestSearchInput");
+  guestSearchKeyword = input ? input.value.trim() : "";
+  renderGuestsTable();
+}
+
+function setGuestOpenFilter(filter) {
+  guestOpenFilter = filter || "all";
+
+  document.querySelectorAll(".guest-filter-actions button").forEach(btn => {
+    btn.classList.remove("active-filter");
+  });
+
+  const map = {
+    all: "guestFilterAll",
+    opened: "guestFilterOpened",
+    unopened: "guestFilterUnopened"
+  };
+
+  const activeBtn = document.getElementById(map[guestOpenFilter]);
+  if (activeBtn) activeBtn.classList.add("active-filter");
+
+  renderGuestsTable();
 }
   </script>
 </body>

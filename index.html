@@ -1101,6 +1101,93 @@ tr:hover td { background: #fffaf0 !important; }
     grid-column: span 1;
   }
 }
+/* ===== MOBILE: THỐNG KÊ NHỎ GỌN HƠN ===== */
+@media screen and (max-width: 760px) {
+  .luxury-stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 0 !important;
+  }
+
+  .luxury-stats .stat-card {
+    min-height: 92px !important;
+    padding: 12px !important;
+    border-radius: 18px !important;
+    gap: 9px !important;
+    align-items: center !important;
+    box-shadow: 0 8px 20px rgba(19, 34, 1, 0.06) !important;
+  }
+
+  .luxury-stats .stat-card::after {
+    width: 56px !important;
+    height: 56px !important;
+    right: -24px !important;
+    bottom: -26px !important;
+    opacity: 0.45 !important;
+  }
+
+  .luxury-stats .stat-icon {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    border-radius: 14px !important;
+    font-size: 18px !important;
+  }
+
+  .luxury-stats .stat-label {
+    font-size: 10.5px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .luxury-stats .stat-number {
+    font-size: 25px !important;
+    line-height: 1 !important;
+    letter-spacing: -0.04em !important;
+  }
+
+  .luxury-stats .stat-text {
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
+
+  .status-card {
+    grid-column: span 2 !important;
+    min-height: 76px !important;
+  }
+
+  .status-card .stat-text {
+    font-size: 15px !important;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .luxury-stats {
+    gap: 8px !important;
+  }
+
+  .luxury-stats .stat-card {
+    min-height: 86px !important;
+    padding: 10px !important;
+    border-radius: 16px !important;
+  }
+
+  .luxury-stats .stat-icon {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    font-size: 16px !important;
+  }
+
+  .luxury-stats .stat-number {
+    font-size: 22px !important;
+  }
+
+  .luxury-stats .stat-label {
+    font-size: 10px !important;
+  }
+}
   </style>
 </head>
 

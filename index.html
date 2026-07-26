@@ -1792,7 +1792,7 @@ function normalizeAttendingValue(value) {
       });
     }
 
-    function openMessenger(link, guestName, btn) {
+   function openMessenger(link, guestName, btn) {
   const message = `💌 Kính mời ${guestName || "bạn"} tham dự lễ cưới của chúng mình:\n${link}`;
 
   navigator.clipboard.writeText(message).then(() => {
@@ -1805,26 +1805,15 @@ function normalizeAttendingValue(value) {
 
   const ua = navigator.userAgent || "";
   const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
-  const isZalo = /Zalo/i.test(ua);
-  const isInAppBrowser = /FBAN|FBAV|Instagram|Line|Zalo/i.test(ua);
 
-  // Nếu đang mở trong Zalo/Facebook in-app browser:
-  // Không ép nhảy sang web nữa, chỉ copy nội dung để bác dán vào Messenger.
-  if (isZalo || isInAppBrowser) {
-    alert(
-      "Đã copy lời mời + link ✅\n\nDo bác đang mở trong Zalo/trình duyệt trong app, iPhone có thể chặn mở thẳng Messenger.\nBác mở Messenger rồi dán gửi khách nhé."
-    );
-    return;
-  }
-
-  // Trên điện thoại ngoài trình duyệt app: chỉ thử mở app Messenger, không fallback sang web.
   if (isMobile) {
+    // Chỉ mở app Messenger, không fallback sang web
     window.location.href = `fb-messenger://share?link=${encodeURIComponent(link)}`;
     return;
   }
 
-  // Trên máy tính: copy link là chính, mở Messenger web nếu cần.
-  window.open("https://www.messenger.com/", "_blank");
+  // Trên máy tính: chỉ copy nội dung, không mở web Messenger nữa
+  alert("Đã copy lời mời + link ✅\nBác mở Messenger trên máy tính rồi dán gửi khách nhé.");
 }
     function formatDate(value) {
       if (!value) return "";

@@ -1015,7 +1015,92 @@ tr:hover td { background: #fffaf0 !important; }
   .actions { grid-template-columns: 1fr 1fr !important; }
   #guestTab td:nth-child(4) { grid-template-columns: 1fr 1fr 52px !important; }
 }
+.luxury-stats {
+  grid-template-columns: 1fr;
+}
 
+.luxury-stats .stat-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 96px;
+  border: 1px solid rgba(234, 223, 205, 0.96);
+  background:
+    radial-gradient(circle at top right, rgba(200, 161, 90, 0.14), transparent 36%),
+    linear-gradient(135deg, #fffdf8, #fbf3df);
+}
+
+.luxury-stats .stat-card::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  right: -36px;
+  bottom: -42px;
+  border-radius: 50%;
+  background: rgba(200, 161, 90, 0.14);
+}
+
+.luxury-stats .stat-primary {
+  background:
+    radial-gradient(circle at top right, rgba(255, 234, 177, 0.22), transparent 38%),
+    linear-gradient(135deg, #101d0a, #31491f);
+}
+
+.luxury-stats .stat-primary .stat-label,
+.luxury-stats .stat-primary .stat-number {
+  color: #fff7e6;
+}
+
+.luxury-stats .stat-primary .stat-icon {
+  background: rgba(255,255,255,0.14);
+  color: #fff7e6;
+}
+
+.luxury-stats .stat-yes {
+  background:
+    radial-gradient(circle at top right, rgba(34, 197, 94, 0.13), transparent 36%),
+    linear-gradient(135deg, #f7fff8, #ecfdf3);
+}
+
+.luxury-stats .stat-no {
+  background:
+    radial-gradient(circle at top right, rgba(164, 20, 20, 0.10), transparent 36%),
+    linear-gradient(135deg, #fffafa, #fff1f2);
+}
+
+.status-card {
+  background:
+    radial-gradient(circle at top right, rgba(255, 241, 198, 0.24), transparent 38%),
+    linear-gradient(135deg, #fff7df, #f3e2bb) !important;
+}
+
+@media screen and (min-width: 921px) {
+  .luxury-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .luxury-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .status-card {
+    grid-column: span 2;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .luxury-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .status-card {
+    grid-column: span 1;
+  }
+}
   </style>
 </head>
 
@@ -1063,31 +1148,63 @@ tr:hover td { background: #fffaf0 !important; }
           </div>
         </div>
 
-        <div class="stats-panel">
-          <div class="stat-card">
-            <div class="stat-icon">💌</div>
-            <div>
-              <div class="stat-label">Tổng link đã tạo</div>
-              <div id="guestCount" class="stat-number">0</div>
-            </div>
-          </div>
+        <div class="stats-panel luxury-stats">
+  <div class="stat-card stat-primary">
+    <div class="stat-icon">💌</div>
+    <div>
+      <div class="stat-label">Tổng link đã tạo</div>
+      <div id="guestCount" class="stat-number">0</div>
+    </div>
+  </div>
 
-          <div class="stat-card">
-            <div class="stat-icon">🥂</div>
-            <div>
-              <div class="stat-label">Phản hồi RSVP</div>
-              <div id="rsvpCount" class="stat-number">0</div>
-            </div>
-          </div>
+  <div class="stat-card">
+    <div class="stat-icon">👀</div>
+    <div>
+      <div class="stat-label">Tổng lượt mở thiệp</div>
+      <div id="openCount" class="stat-number">0</div>
+    </div>
+  </div>
 
-          <div class="stat-card champagne-card">
-            <div class="stat-icon">✨</div>
-            <div>
-              <div class="stat-label">Trạng thái</div>
-              <div class="stat-text">Đang hoạt động</div>
-            </div>
-          </div>
-        </div>
+  <div class="stat-card">
+    <div class="stat-icon">🥂</div>
+    <div>
+      <div class="stat-label">Tổng RSVP</div>
+      <div id="rsvpCount" class="stat-number">0</div>
+    </div>
+  </div>
+
+  <div class="stat-card stat-yes">
+    <div class="stat-icon">✅</div>
+    <div>
+      <div class="stat-label">Xác nhận tham dự</div>
+      <div id="attendingYesCount" class="stat-number">0</div>
+    </div>
+  </div>
+
+  <div class="stat-card stat-no">
+    <div class="stat-icon">🙏</div>
+    <div>
+      <div class="stat-label">Báo bận</div>
+      <div id="attendingNoCount" class="stat-number">0</div>
+    </div>
+  </div>
+
+  <div class="stat-card champagne-card">
+    <div class="stat-icon">👥</div>
+    <div>
+      <div class="stat-label">Số người dự kiến</div>
+      <div id="peopleTotalCount" class="stat-number">0</div>
+    </div>
+  </div>
+
+  <div class="stat-card status-card">
+    <div class="stat-icon">✨</div>
+    <div>
+      <div class="stat-label">Trạng thái thiệp</div>
+      <div id="weddingStatusText" class="stat-text">Đang hoạt động</div>
+    </div>
+  </div>
+</div>
       </div>
 
       <div class="panel">
@@ -1384,21 +1501,76 @@ async function loadProfileRole() {
     }
 
     async function loadStats() {
-      if (!currentWedding) return;
+  if (!currentWedding) return;
 
-      const { count: guestsCount } = await supabaseClient
-        .from("guests")
-        .select("*", { count: "exact", head: true })
-        .eq("wedding_id", currentWedding.id);
+  const { data: guestsData, count: guestsCount } = await supabaseClient
+    .from("guests")
+    .select("opened_count", { count: "exact" })
+    .eq("wedding_id", currentWedding.id);
 
-      const { count: rsvpsCount } = await supabaseClient
-        .from("rsvps")
-        .select("*", { count: "exact", head: true })
-        .eq("wedding_id", currentWedding.id);
+  const { data: rsvpsData, count: rsvpsCount } = await supabaseClient
+    .from("rsvps")
+    .select("attending, people_count", { count: "exact" })
+    .eq("wedding_id", currentWedding.id);
 
-      document.getElementById("guestCount").textContent = guestsCount || 0;
-      document.getElementById("rsvpCount").textContent = rsvpsCount || 0;
+  const totalOpens = (guestsData || []).reduce((sum, row) => {
+    return sum + Number(row.opened_count || 0);
+  }, 0);
+
+  let yesCount = 0;
+  let noCount = 0;
+  let peopleTotal = 0;
+
+  (rsvpsData || []).forEach(row => {
+    const attending = normalizeAttendingValue(row.attending);
+
+    if (attending === "yes") {
+      yesCount++;
+      peopleTotal += Number(row.people_count || 1);
     }
+
+    if (attending === "no") {
+      noCount++;
+    }
+  });
+
+  setText("guestCount", guestsCount || 0);
+  setText("openCount", totalOpens);
+  setText("rsvpCount", rsvpsCount || 0);
+  setText("attendingYesCount", yesCount);
+  setText("attendingNoCount", noCount);
+  setText("peopleTotalCount", peopleTotal);
+  setText("weddingStatusText", currentWedding.is_active ? "Đang hoạt động" : "Tạm tắt");
+}
+
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function normalizeAttendingValue(value) {
+  const text = String(value || "").toLowerCase();
+
+  if (
+    text === "yes" ||
+    text.includes("có") ||
+    text.includes("chắc chắn") ||
+    text.includes("tham dự")
+  ) {
+    return "yes";
+  }
+
+  if (
+    text === "no" ||
+    text.includes("không") ||
+    text.includes("xin lỗi") ||
+    text.includes("bận")
+  ) {
+    return "no";
+  }
+
+  return "";
+}
 
     async function createGuestLinks() {
       const input = document.getElementById("guestNames");

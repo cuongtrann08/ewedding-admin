@@ -1793,26 +1793,39 @@ function normalizeAttendingValue(value) {
     }
 
     function openMessenger(link, guestName, btn) {
-      const message = `💌 Kính mời ${guestName || "bạn"} tham dự lễ cưới của chúng mình:\n${link}`;
+  const message = `💌 Kính mời ${guestName || "bạn"} tham dự lễ cưới của chúng mình:\n${link}`;
 
-      navigator.clipboard.writeText(message).then(() => {
-        const oldText = btn.textContent;
-        btn.textContent = "Đã copy ✅";
-        setTimeout(() => { btn.textContent = oldText; }, 1500);
-      }).catch(() => {});
+  navigator.clipboard.writeText(message).then(() => {
+    const oldText = btn.textContent;
+    btn.textContent = "Đã copy ✅";
+    setTimeout(() => {
+      btn.textContent = oldText;
+    }, 1500);
+  }).catch(() => {});
 
-      const messengerAppUrl = `fb-messenger://share?link=${encodeURIComponent(link)}`;
-      const messengerWebUrl = "https://www.messenger.com/";
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const ua = navigator.userAgent || "";
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
+  const isZalo = /Zalo/i.test(ua);
+  const isInAppBrowser = /FBAN|FBAV|Instagram|Line|Zalo/i.test(ua);
 
-      if (isMobile) {
-        window.location.href = messengerAppUrl;
-        setTimeout(() => { window.location.href = messengerWebUrl; }, 900);
-      } else {
-        window.open(messengerWebUrl, "_blank");
-      }
-    }
+  // Nếu đang mở trong Zalo/Facebook in-app browser:
+  // Không ép nhảy sang web nữa, chỉ copy nội dung để bác dán vào Messenger.
+  if (isZalo || isInAppBrowser) {
+    alert(
+      "Đã copy lời mời + link ✅\n\nDo bác đang mở trong Zalo/trình duyệt trong app, iPhone có thể chặn mở thẳng Messenger.\nBác mở Messenger rồi dán gửi khách nhé."
+    );
+    return;
+  }
 
+  // Trên điện thoại ngoài trình duyệt app: chỉ thử mở app Messenger, không fallback sang web.
+  if (isMobile) {
+    window.location.href = `fb-messenger://share?link=${encodeURIComponent(link)}`;
+    return;
+  }
+
+  // Trên máy tính: copy link là chính, mở Messenger web nếu cần.
+  window.open("https://www.messenger.com/", "_blank");
+}
     function formatDate(value) {
       if (!value) return "";
       try { return new Date(value).toLocaleString("vi-VN"); }

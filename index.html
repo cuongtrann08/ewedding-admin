@@ -1523,18 +1523,36 @@ async function loadAdminClients() {
         </td>
 
         <td>
-          <button class="btn-copy" onclick="copyText('${escapeForJs(item.email || "")}', this)">
-            Copy email
-          </button>
+  <button class="btn-copy" onclick="copyText('${escapeForJs(item.email || "")}', this)">
+    Copy email
+  </button>
 
-          <button class="btn-light" onclick="saveAdminWedding('${item.wedding_id}')" style="margin-left:6px">
-            Lưu
-          </button>
+  <button class="btn-light" onclick="copyClientLogin('${escapeForJs(item.email || "")}', this)" style="margin-left:6px">
+    Copy đăng nhập
+  </button>
 
-          <button class="btn-danger" onclick="toggleAdminWedding('${item.wedding_id}', ${item.is_active ? "false" : "true"})" style="margin-left:6px">
-            ${item.is_active ? "Tắt" : "Bật"}
-          </button>
-        </td>
+  <button class="btn-light" onclick="saveAdminWedding('${item.wedding_id}')" style="margin-left:6px">
+    Lưu
+  </button>
+
+  <button class="btn-danger" onclick="toggleAdminWedding('${item.wedding_id}', ${item.is_active ? "false" : "true"})" style="margin-left:6px">
+    ${item.is_active ? "Tắt" : "Bật"}
+  </button>
+
+  <div style="margin-top:8px">
+    <input
+      class="admin-input"
+      id="password-${item.user_id}"
+      type="text"
+      placeholder="Mật khẩu mới"
+      style="min-width:150px"
+    >
+
+    <button class="btn-light" onclick="updateClientPasswordFromDashboard('${item.user_id}', '${escapeForJs(item.email || "")}')" style="margin-left:6px">
+      Đổi mật khẩu
+    </button>
+  </div>
+</td>
       </tr>
     `).join("");
 
@@ -1642,6 +1660,86 @@ async function toggleAdminWedding(weddingId, nextStatus) {
     msg.style.color = "#a41414";
     msg.textContent = "Lỗi kết nối API: " + err.message;
   }
+}
+async function updateClientPasswordFromDashboard(userId, email) {
+  const msg = document.getElementById("adminClientsMsg");
+  const adminSecret = document.getElementById("adminSecretInput").value.trim();
+  const input = document.getElementById(`password-${userId}`);
+
+  if (!isAdminUser) {
+    alert("Chỉ tài khoản quản trị mới dùng được mục này.");
+    return;
+  }
+
+  if (!adminSecret) {
+    alert("Bác nhập mã quản trị trước nhé.");
+    return;
+  }
+
+  if (!input) {
+    alert("Không tìm thấy ô mật khẩu.");
+    return;
+  }
+
+  const newPassword = input.value.trim();
+
+  if (!newPassword || newPassword.length < 6) {
+    alert("Mật khẩu mới phải có ít nhất 6 ký tự.");
+    return;
+  }
+
+  const ok = confirm(`Đổi mật khẩu cho ${email || "tài khoản này"}?`);
+  if (!ok) return;
+
+  msg.style.color = "#047857";
+  msg.textContent = "Đang đổi mật khẩu...";
+
+  try {
+    const res = await fetch("https://go.ewedding.site/admin/update-client-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        admin_secret: adminSecret,
+        user_id: userId,
+        new_password: newPassword
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.ok) {
+      msg.style.color = "#a41414";
+      msg.textContent = "Không đổi được mật khẩu: " + JSON.stringify(data.error || data);
+      return;
+    }
+
+    msg.style.color = "#047857";
+    msg.innerHTML = `
+      Đã đổi mật khẩu thành công ✅<br>
+      Email: <b>${escapeHtml(email || "")}</b><br>
+      Mật khẩu mới: <b>${escapeHtml(newPassword)}</b>
+    `;
+
+    input.value = "";
+
+  } catch (err) {
+    msg.style.color = "#a41414";
+    msg.textContent = "Lỗi kết nối API: " + err.message;
+  }
+}
+
+function copyClientLogin(email, btn) {
+  const text = `Link quản lý thiệp cưới: https://quanly.ewedding.site\nEmail: ${email}\nMật khẩu: bác nhập mật khẩu đã cấp cho dâu rể`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const oldText = btn.textContent;
+    btn.textContent = "Đã copy ✅";
+    setTimeout(() => {
+      btn.textContent = oldText;
+    }, 1200);
+  });
 }
   </script>
 </body>

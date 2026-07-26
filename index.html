@@ -1636,6 +1636,124 @@ tr:hover td { background: #fffaf0 !important; }
     font-size: 30px;
   }
 }
+.quick-guide {
+  margin: 0 0 18px;
+  padding: 18px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(200, 161, 90, 0.14), transparent 36%),
+    linear-gradient(135deg, #fffdf8, #fbf3df);
+  border: 1px solid rgba(234, 223, 205, 0.96);
+  box-shadow: 0 10px 26px rgba(19, 34, 1, 0.06);
+}
+
+.quick-guide-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.quick-guide-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #fff3d6;
+  color: #8a5a12;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.quick-guide h4 {
+  margin: 9px 0 0;
+  color: var(--green);
+  font-size: 19px;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+
+.quick-guide-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.quick-step {
+  min-height: 104px;
+  padding: 13px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.78);
+  border: 1px solid rgba(234, 223, 205, 0.85);
+}
+
+.quick-step span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--green), var(--green-2));
+  color: #fff7e6;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.quick-step p {
+  margin: 0;
+  color: #6f5b3e;
+  font-size: 12.5px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+.quick-step b {
+  color: var(--green);
+}
+
+@media screen and (max-width: 920px) {
+  .quick-guide-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .quick-guide {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .quick-guide h4 {
+    font-size: 17px;
+  }
+
+  .quick-guide-steps {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .quick-step {
+    min-height: auto;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 11px;
+    border-radius: 16px;
+  }
+
+  .quick-step span {
+    margin-bottom: 0;
+  }
+
+  .quick-step p {
+    font-size: 12.5px;
+  }
+}
   </style>
 </head>
 
@@ -1790,6 +1908,36 @@ tr:hover td { background: #fffaf0 !important; }
       <div class="panel">
         <div id="guestTab">
           <h3>Cá nhân hoá khách mời</h3>
+          <div class="quick-guide">
+  <div class="quick-guide-head">
+    <div>
+      <span class="quick-guide-badge">Hướng dẫn nhanh</span>
+      <h4>Cách tạo link mời khách</h4>
+    </div>
+  </div>
+
+  <div class="quick-guide-steps">
+    <div class="quick-step">
+      <span>1</span>
+      <p>Nhập tên khách mời, mỗi dòng một người.</p>
+    </div>
+
+    <div class="quick-step">
+      <span>2</span>
+      <p>Bấm <b>Tạo link cá nhân hoá</b>.</p>
+    </div>
+
+    <div class="quick-step">
+      <span>3</span>
+      <p>Bấm <b>Chép link</b> hoặc <b>Mess</b> để gửi cho khách.</p>
+    </div>
+
+    <div class="quick-step">
+      <span>4</span>
+      <p>Vào tab <b>RSVP & lời chúc</b> để xem phản hồi.</p>
+    </div>
+  </div>
+</div>
 
           <div class="guide-box luxe-guide">
             <strong>Nhập tên khách mời, mỗi dòng một người</strong>
